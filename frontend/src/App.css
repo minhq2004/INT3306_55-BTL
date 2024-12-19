@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.scaleUp {
+  -webkit-animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
+    both;
+  animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@-webkit-keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.text-gradient {
+  background: radial-gradient(
+    64.18% 64.18% at 71.16% 35.69%,
+    #9c53ff 0.89%,
+    #9c53ff 17.23%,
+    #007dff 42.04%,
+    #9c53ff 55.12%,
+    #9c53ff 60.54%,
+    #007dff 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.shadowCard {
+  box-shadow: 0px 2px 4px rgba(7, 4, 146, 0.1),
+    0px 24px 60px rgba(6, 47, 125, 0.05), 0px 12px 24px rgba(27, 59, 119, 0.05);
+}
+.dealsShadow {
+  box-shadow: 0px 2px 4px rgba(28, 5, 77, 0.1),
+    0px 12px 32px rgba(0, 0, 0, 0.05);
+}
+
+.footerLi {
+  @apply text-[#6E7491] font-normal text-base;
+}
+
+.priceGridHead {
+  @apply w-[50px] sm:w-[65px] pt-2 h-full text-center border-r-[1px]  border-[#E9E8FC] text-[#52556F] font-bold text-xs;
+}
+
+.priceGridText {
+  @apply w-[50px] sm:w-[65px] h-full text-center border-r-[1px]  border-[#E9E8FC] p-2 text-[#6E7491] font-normal text-sm;
+}
+
+.reg {
+  @apply absolute -ml-1 -mt-2 w-full bg-sky-500 p-5 rounded-[10px] transition-all duration-100;
+}
+
+.paymentoptions {
+  @apply w-full h-full hidden sm:flex items-center justify-center text-[#605DEC] gap-1 hover:bg-[#605DEC] hover:text-[#FAFAFA] focus:bg-[#605DEC] focus:text-[#FAFAFA] transition-all duration-200;
+}
+
+.titleh1 {
+  @apply text-[#605DEC] text-xl sm:text-2xl font-bold;
+}
+
+table {
+  @apply w-full min-w-[400px] sm:min-w-[600px] lg:min-w-[800px];
+}
+
+.gradient-text {
+  background: linear-gradient(270deg, #60a5fa, #38bdf8, #2563eb);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 3s ease infinite;
+  text-shadow: 0 0 20px rgba(96, 165, 250, 0.2);
+  font-weight: bold;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+@keyframes gradient-shine {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(100%);
+  }
+  25% {
+    filter: brightness(110%);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(100%);
+  }
+  75% {
+    filter: brightness(110%);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(100%);
+  }
+}
+
+.animate-gradient-shine {
+  animation: gradient-shine 8s ease infinite;
+}
+
+@keyframes gradient-rainbow {
+  0% {
+    background-position: 0% 50%;
+    filter: saturate(150%) brightness(100%);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: saturate(200%) brightness(110%);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: saturate(150%) brightness(100%);
+  }
+}
+
+.animate-gradient-rainbow {
+  animation: gradient-rainbow 5s linear infinite;
+}
+
+@keyframes gradient-neon {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(100%) drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(125%) drop-shadow(0 0 15px rgba(59, 130, 246, 0.7));
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(100%) drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+  }
+}
+
+.animate-gradient-neon {
+  animation: gradient-neon 4s ease infinite;
+}
+
+@keyframes gradient-metallic {
+  0% {
+    background-position: 0% 50%;
+    filter: contrast(150%) brightness(100%);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: contrast(200%) brightness(120%);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: contrast(150%) brightness(100%);
+  }
+}
+
+.animate-gradient-metallic {
+  animation: gradient-metallic 6s ease infinite;
+}

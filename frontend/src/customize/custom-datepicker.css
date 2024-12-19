@@ -1,0 +1,87 @@
+.react-datepicker {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  width: 100%;
+}
+
+.react-datepicker__header {
+  background-color: #0ca6e8; /* Màu header */
+  border-bottom: none;
+  padding: 12px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.react-datepicker__day:hover {
+  background-color: #ffffff; /* Hiệu ứng hover cho ngày */
+  color: #0ca6e8;
+  border-radius: 50%;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #0ca6e8; /* Màu ngày được chọn */
+  color: white;
+  border-radius: 50%; /* Làm tròn ngày được chọn */
+}
+
+.react-datepicker__current-month {
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+}
+
+.react-datepicker__navigation {
+  top: 2px;
+  line-height: 1.7rem;
+}
+
+.react-datepicker__navigation-icon {
+  width: 10px;
+  height: 10px;
+  fill: white;
+}
+
+.react-datepicker__day-name {
+  color: #f3f7fb; /* Màu cho các tên ngày (Mon, Tue,...) */
+  font-weight: 600;
+}
+
+.react-datepicker__day {
+  font-size: 0.875rem;
+  margin: 0.2rem;
+}
+
+.react-datepicker__month {
+  margin: 16px 8px;
+}
+
+/* Ngày không nằm trong tháng hiện tại */
+.react-datepicker__day--outside-month {
+  color: #d1d5db;
+}
+
+/* Làm nổi bật ngày hôm nay */
+.react-datepicker__day--today {
+  border: 1px solid #0ca6e8;
+  font-weight: normal;
+  border-radius: 50%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .react-datepicker {
+    width: 100%;
+  }
+
+  .react-datepicker__header {
+    padding: 8px;
+  }
+
+  .react-datepicker__day {
+    margin: 0.15rem;
+    font-size: 0.75rem;
+  }
+}
