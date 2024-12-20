@@ -7,10 +7,22 @@ import QuanLyDichVu from "./QuanLyDichVu";
 import QuanLyTaiKhoan from "./QuanLyTaiKhoan";
 import QuanLyTauBay from "./QuanLyTauBay";
 import QuanLyKhuyenMai from "./QuanLyKhuyenMai";
-import { Toaster } from "react-hot-toast";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Toaster, toast } from "react-hot-toast";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const adminToken = localStorage.getItem("adminToken");
+
+    if (!adminToken) {
+      toast.error("Bạn cần đăng nhập để truy cập trang này.");
+      navigate("/", { replace: true });
+    }
+  }, [navigate]);
+
   return (
     <>
       <div>

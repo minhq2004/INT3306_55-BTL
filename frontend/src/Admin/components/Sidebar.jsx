@@ -3,20 +3,6 @@ import { Link } from "react-router-dom";
 
 const admin = localStorage.getItem("admin");
 
-const handleLogout = () => {
-  const confirmLogout = window.confirm(
-    "Are you sure you want to log out of your session?"
-  );
-
-  if (confirmLogout) {
-    localStorage.clear();
-
-    return true;
-  }
-
-  return false;
-};
-
 const Sidebar = () => {
   // State để quản lý item đang được chọn trong sidebar, lấy từ localStorage nếu có
   const [activeItem, setActiveItem] = useState(() => {
@@ -43,6 +29,18 @@ const Sidebar = () => {
     setIsTextVisible(!isTextVisible);
   };
 
+  const handleLogout = () => {
+    const confirmLogout = window.confirm(
+      "Are you sure you want to log out of your session?"
+    );
+
+    if (confirmLogout) {
+      localStorage.removeItem("adminToken");
+      localStorage.removeItem("admin");
+      toast.success("Logout successfully!");
+    }
+  };
+
   // Effect hook để cập nhật style của thanh highlight khi active item thay đổi
   useEffect(() => {
     if (itemRefs.current[activeItem]) {
@@ -64,13 +62,10 @@ const Sidebar = () => {
       }
     };
 
-    // Initial check
     handleMediaQueryChange(mediaQuery);
 
-    // Add listener
     mediaQuery.addEventListener("change", handleMediaQueryChange);
 
-    // Cleanup listener on unmount
     return () => {
       mediaQuery.removeEventListener("change", handleMediaQueryChange);
     };
@@ -317,28 +312,27 @@ const Sidebar = () => {
                 e.preventDefault(); // Cancel navigation
               }
             }}
+            class="flex items-center space-x-3 cursor-pointe"
           >
-            <button class="flex items-center space-x-3 cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="size-6 stroke-sky-500 ml-1"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
-                />
-              </svg>
-              {isTextVisible && (
-                <p className="text-gray-600 text-sm font-medium duration-700">
-                  Logout
-                </p>
-              )}
-            </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 stroke-sky-500 ml-1"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
+              />
+            </svg>
+            {isTextVisible && (
+              <p className="text-gray-600 text-sm font-medium duration-700">
+                Logout
+              </p>
+            )}
           </Link>
         </div>
       </div>

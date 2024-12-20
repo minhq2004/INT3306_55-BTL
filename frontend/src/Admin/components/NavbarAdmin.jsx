@@ -20,12 +20,10 @@ const Navbar = () => {
     );
 
     if (confirmLogout) {
-      localStorage.clear();
-
-      return true;
+      localStorage.removeItem("adminToken");
+      localStorage.removeItem("admin");
+      toast.success("Logout successfully!");
     }
-
-    return false;
   };
 
   return (
