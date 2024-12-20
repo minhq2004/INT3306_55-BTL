@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import FileUpload from "../../components/FileUpload";
+import FileUpload from "../components/FileUpload";
 import toast from "react-hot-toast";
 
 const adminToken = localStorage.getItem("adminToken");

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import BookingStatistics from "../../components/BookingStatistics";
+import BookingStatistics from "../components/BookingStatistics";
 
 const adminToken = localStorage.getItem("adminToken");
 

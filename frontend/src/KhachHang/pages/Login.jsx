@@ -58,7 +58,7 @@ function Login() {
               <img
                 src="/qairline.jpg"
                 alt="Qairline"
-                className="justify-between size-16 rounded-full transition-all duration-500 transform group-hover:scale-110 group-hover:shadow-xl group-hover:shadow-blue-500/20"
+                className="justify-between size-16 rounded-full transition-all duration-500 transform hover:scale-110 hover:shadow-sm hover:shadow-blue-500/20"
               />
             </Link>
           </div>

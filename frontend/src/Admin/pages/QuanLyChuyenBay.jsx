@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import LocationInput from "../../components/LocationInput";
-import AirplaneInput from "../../components/AirplaneInput";
+import LocationInput from "../components/LocationInput";
+import AirplaneInput from "../components/AirplaneInput";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Import CSS mặc định
-import "../../customize/custom-datepicker.css";
+import "../customize/custom-datepicker.css";
 
 const adminToken = localStorage.getItem("adminToken");
 

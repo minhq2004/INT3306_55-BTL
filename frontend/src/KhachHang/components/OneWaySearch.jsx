@@ -10,10 +10,9 @@ import {
 } from "@nextui-org/react";
 import { User, PlaneTakeoff, PlaneLanding } from "lucide-react";
 import PassengerSelector from "./PassengerSelector";
-import useFlightStore from "../stores/useFlightStore";
+import useFlightStore from "../stores/useFlightStore.js";
 import axios from "axios";
 import DateInput from "./DateInput.jsx";
-
 // LocationInput Component
 const LocationInput = ({ value, onChange, placeholder, startContent }) => {
   const [suggestions, setSuggestions] = useState([]);
@@ -108,7 +107,7 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
   return (
     <div className="relative w-full h-full">
       <div className="h-full relative">
-        <span className="absolute left-3 top-1/2 transform -translate-y-1/2 z-10">
+        <span className="absolute left-3 top-1/2 transform -translate-y-1/2">
           {startContent}
         </span>
         <input
@@ -119,15 +118,17 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
           onChange={handleInputChange}
           onFocus={handleFocus}
           onBlur={() => setTimeout(() => setDropdownVisible(false), 200)}
-          className="h-full w-full bg-transparent text-medium pl-10 pr-4 outline-none truncate"
+          className="h-full w-full bg-transparent text-medium px-12 outline-none"
         />
       </div>
 
-      {isDropdownVisible && suggestions.length > 0 && ReactDOM.createPortal(
-        <div
-          style={dropdownStyles}
-          className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-xl shadow-2xl max-h-[400px] overflow-hidden animate-in fade-in duration-200"
-        >
+      {isDropdownVisible &&
+        suggestions.length > 0 &&
+        ReactDOM.createPortal(
+          <div
+            style={dropdownStyles}
+            className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-xl shadow-2xl max-h-[400px] overflow-hidden animate-in fade-in duration-200"
+          >
             <div className="flex divide-x divide-gray-100">
               {/* Country List */}
               <div className="w-1/3 bg-gray-50/80 backdrop-blur-md">
@@ -142,14 +143,14 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
                       key={group.country}
                       onMouseEnter={() => handleMouseEnterCountry(group)}
                       className={`
-                        mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer
-                        transition-all duration-200 ease-in-out
-                        ${
-                          activeCountry?.country === group.country
-                            ? "bg-sky-500 text-white shadow-md"
-                            : "hover:bg-sky-100 text-gray-700 hover:text-gray-900"
-                        }
-                      `}
+                  mx-2 my-1 px-3 py-2 rounded-lg cursor-pointer 
+                  transition-all duration-200 ease-in-out
+                  ${
+                    activeCountry?.country === group.country
+                      ? "bg-sky-500 text-white shadow-md"
+                      : "hover:bg-sky-100 text-gray-700 hover:text-gray-900"
+                  }
+                `}
                     >
                       <div className="font-medium">{group.country}</div>
                       <div className="text-xs opacity-80">
@@ -174,11 +175,11 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
                         key={city}
                         onClick={() => handleSelectSuggestion(city)}
                         className="
-                          px-3 py-2 rounded-lg cursor-pointer
-                          transition-all duration-200 ease-in-out
-                          hover:bg-blue-50 text-gray-700 hover:text-gray-900
-                          hover:shadow-sm
-                        "
+                    px-3 py-2 rounded-lg cursor-pointer
+                    transition-all duration-200 ease-in-out
+                    hover:bg-blue-50 text-gray-700 hover:text-gray-900
+                    hover:shadow-sm
+                  "
                       >
                         <div className="font-medium">{city}</div>
                         <div className="text-xs text-gray-500">
@@ -197,107 +198,93 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
   );
 };
 
-const RoundTripSearch = () => {
+// Styles chung cho các input
+
+// OneWaySearch Component
+const OneWaySearch = () => {
   const navigate = useNavigate();
   const { searchParams, setSearchParams, updatePassengers } = useFlightStore();
 
   const handleSearch = () => {
-    const { departure, destination, departureDate, returnDate, passengers } =
-      searchParams;
+    const { departure, destination, departureDate, passengers } = searchParams;
 
-    if (!departure || !destination || !departureDate || !returnDate) {
+    if (!departure || !destination || !departureDate) {
       alert("Please fill in all required fields");
       return;
     }
 
     const totalPassengers = passengers.adults + passengers.minors;
     navigate(
-      `/flights/roundtrip/${departure}/${destination}/${departureDate}/${returnDate}/${totalPassengers}`
+      `/flights/oneway/${departure}/${destination}/${departureDate}/${totalPassengers}`
     );
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="flex flex-col lg:flex-row bg-white/40 backdrop-blur-md rounded-xl shadow-lg overflow-hidden">
-        {/* Departure Input */}
-        <div className="w-full lg:w-[19%] h-16 border-b lg:border-b-0 lg:border-r border-gray-200/30">
-          <LocationInput
-            value={searchParams.departure}
-            onChange={(value) => setSearchParams({ departure: value })}
-            placeholder="Nơi đi"
-            startContent={<PlaneTakeoff className="text-gray-400" size={20} />}
-          />
-        </div>
+    <div className="flex flex-col md:flex-row gap-0 bg-white/40 backdrop-blur-md rounded-xl shadow-lg overflow-hidden">
+      {/* Stack vertically on mobile, row on desktop */}
+      <div className="md:w-[23%] w-full border-b md:border-b-0 md:border-r border-gray-200/30 h-16 relative">
+        <LocationInput
+          value={searchParams.departure}
+          onChange={(value) => setSearchParams({ departure: value })}
+          placeholder="From Where?"
+          startContent={<PlaneTakeoff className="text-gray-400" size={20} />}
+        />
+      </div>
 
-        {/* Destination Input */}
-        <div className="w-full lg:w-[19%] h-16 border-b lg:border-b-0 lg:border-r border-gray-200/30">
-          <LocationInput
-            value={searchParams.destination}
-            onChange={(value) => setSearchParams({ destination: value })}
-            placeholder="Nơi đến"
-            startContent={<PlaneLanding className="text-gray-400" size={20} />}
-          />
-        </div>
+      <div className="md:w-[23%] w-full border-b md:border-b-0 md:border-r border-gray-200/30 h-16 relative">
+        <LocationInput
+          value={searchParams.destination}
+          onChange={(value) => setSearchParams({ destination: value })}
+          placeholder="Where To?"
+          startContent={<PlaneLanding className="text-gray-400" size={20} />}
+        />
+      </div>
 
-        {/* Departure Date */}
-        <div className="w-full lg:w-[21%] h-16 border-b lg:border-b-0 lg:border-r border-gray-200/30">
-          <DateInput
-            value={searchParams.departureDate}
-            onChange={(value) => setSearchParams({ departureDate: value })}
-            placeholder="Ngày đi"
-            className="text-sm"
-          />
-        </div>
+      <div className="md:w-[16%] w-full border-b md:border-b-0 md:border-r border-gray-200/30 h-16">
+        <DateInput
+          value={searchParams.departureDate}
+          onChange={(value) => setSearchParams({ departureDate: value })}
+          placeholder="Ngày đi"
+        />
+      </div>
 
-        {/* Return Date */}
-        <div className="w-full lg:w-[21%] h-16 border-b lg:border-b-0 lg:border-r border-gray-200/30">
-          <DateInput
-            value={searchParams.returnDate}
-            onChange={(value) => setSearchParams({ returnDate: value })}
-            placeholder="Ngày về"
-            className="text-sm"
-          />
-        </div>
+      <div className="md:w-[22%] w-full border-b md:border-b-0 md:border-r border-gray-200/30 h-16">
+        <Popover placement="bottom">
+          <PopoverTrigger className="h-full">
+            <Input
+              placeholder="Số hành khách"
+              value={searchParams.passengersDisplay}
+              readOnly
+              startContent={<User className="text-gray-400" size={20} />}
+              classNames={{
+                base: "h-full",
+                mainWrapper: "h-full",
+                input: "text-medium bg-transparent cursor-pointer h-full",
+                inputWrapper:
+                  "h-full bg-transparent hover:bg-white/40 transition-colors cursor-pointer rounded-none",
+              }}
+            />
+          </PopoverTrigger>
+          <PopoverContent>
+            <PassengerSelector
+              adultsCount={searchParams.passengers.adults}
+              minorsCount={searchParams.passengers.minors}
+              onUpdatePassengers={updatePassengers}
+            />
+          </PopoverContent>
+        </Popover>
+      </div>
 
-        {/* Passengers */}
-        <div className="w-full lg:w-[20%] h-16 border-b lg:border-b-0 lg:border-r border-gray-200/30">
-          <Popover placement="bottom">
-            <PopoverTrigger className="h-full">
-              <Input
-                placeholder="Số hành khách"
-                value={searchParams.passengersDisplay}
-                readOnly
-                startContent={<User className="text-gray-400" size={20} />}
-                classNames={{
-                  base: "h-full",
-                  mainWrapper: "h-full",
-                  input: "text-sm bg-transparent cursor-pointer h-full",
-                  inputWrapper: "h-full bg-transparent hover:bg-white/40 transition-colors cursor-pointer rounded-none",
-                }}
-              />
-            </PopoverTrigger>
-            <PopoverContent>
-              <PassengerSelector
-                adultsCount={searchParams.passengers.adults}
-                minorsCount={searchParams.passengers.minors}
-                onUpdatePassengers={updatePassengers}
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
-
-        {/* Search Button - Fixed width on desktop, full width on mobile */}
-        <div className="w-full lg:w-[12%] h-16">
-          <Button
-            className="w-full h-full bg-[#1a84dc] text-white rounded-none hover:bg-[#46e5c3] transition-colors"
-            onClick={handleSearch}
-          >
-            Search
-          </Button>
-        </div>
+      <div className="md:w-[16%] w-full h-16">
+        <Button
+          className="w-full h-full bg-[#1a84dc] text-white rounded-none hover:bg-[#46e5c3] transition-colors"
+          onClick={handleSearch}
+        >
+          Search
+        </Button>
       </div>
     </div>
   );
 };
 
-export default RoundTripSearch;
+export default OneWaySearch;

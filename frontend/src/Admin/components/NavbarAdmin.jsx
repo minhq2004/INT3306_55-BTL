@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/images/logo.png";
 
 const admin = localStorage.getItem("admin");
 
@@ -32,7 +31,7 @@ const Navbar = () => {
   return (
     <div className="bg-neutral-100 p-4 shadow-md">
       <div className="flex justify-between items-center">
-        <img src={logo} alt="Logo" className="h-8" />
+        <img src="/logo.png" alt="Logo" className="h-8" />
         <div className="flex items-center gap-3">
           <p className="text-sm">Admin: {JSON.parse(admin)?.name}</p>
           <button

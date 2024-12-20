@@ -8,7 +8,7 @@ import {
   Shield,
   Star,
 } from "lucide-react";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const UserAvatarDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

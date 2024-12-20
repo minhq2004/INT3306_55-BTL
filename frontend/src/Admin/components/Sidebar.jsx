@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/images/logo.png";
 
 const admin = localStorage.getItem("admin");
 
@@ -131,7 +130,7 @@ const Sidebar = () => {
             {isTextVisible ? (
               <img
                 className="inline max-w-28 m-3 align-middle ml-12 transition-all"
-                src={logo}
+                src="/logo.png"
                 alt="QAirline logo"
               />
             ) : (

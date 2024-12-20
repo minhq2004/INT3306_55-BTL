@@ -1,5 +1,5 @@
-import Sidebar from "../../components/Sidebar";
-import NavbarAdmin from "../../components/NavbarAdmin";
+import Sidebar from "../components/Sidebar";
+import NavbarAdmin from "../components/NavbarAdmin";
 import DangThongTin from "./DangThongTin";
 import QuanLyChuyenBay from "./QuanLyChuyenBay";
 import QuanLyDatVe from "./QuanLyDatVe";

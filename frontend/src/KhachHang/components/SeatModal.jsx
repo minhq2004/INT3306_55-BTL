@@ -13,11 +13,11 @@ import {
 } from "@nextui-org/react";
 import { toast } from "sonner";
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 import SeatMap from "./SeatMap";
 import CouponApply from "./CouponApply";
-import useFlightStore from "../stores/useFlightStore";
+import useFlightStore from "../stores/useFlightStore.js";
 import FinalConfirm from "./FinalConfirm.jsx";
 import BookingSuccess from "./BookingSuccess.jsx";
 import BookingGuide from "./BookingGuide.jsx";

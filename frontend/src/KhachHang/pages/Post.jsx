@@ -411,6 +411,7 @@ const BlogDetail = () => {
                             as={Link}
                             href={`http://localhost:3000/public/${file.file_path}`}
                             download
+                            target="_blank"
                             color="primary"
                           >
                             Tải xuống
