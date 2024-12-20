@@ -66,11 +66,11 @@ const QuanLyDatVe = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="rounded-xl h-[670px] flex flex-col space-y-3">
-      <div className="h-3/4 w-full overflow-auto">
+    <div className="rounded-xl h-screen min-h-screen flex flex-col space-y-2">
+      <div className="h-full w-full overflow-auto">
         <BookingStatistics></BookingStatistics>
       </div>
-      <div className="h-2/3 p-4 bg-white rounded-lg shadow-md overflow-auto">
+      <div className="h-full p-4 bg-white rounded-lg shadow-md overflow-auto">
         <h3 className="font-bold text-xl mt-2">Booking List</h3>
 
         {bookings.length > 0 ? (

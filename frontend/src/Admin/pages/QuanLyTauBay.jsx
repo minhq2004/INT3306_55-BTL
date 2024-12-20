@@ -175,7 +175,7 @@ const QuanLyTauBay = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="rounded-xl h-[670px] flex flex-col space-y-4">
+    <div className="rounded-xl h-screen min-h-screen flex flex-col space-y-4">
       <div className="rounded-lg bg-white flex flex-col overflow-auto shadow-md min-h-fit">
         <h1 className="font-bold text-xl mt-2 ml-4">Enter airplane data</h1>
         <div className="p-4 w-full sm:flex items-end gap-6">

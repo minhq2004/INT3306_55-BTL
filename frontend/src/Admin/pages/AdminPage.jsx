@@ -28,7 +28,7 @@ const AdminPage = () => {
       <div>
         <Toaster />
       </div>
-      <div className="bg-sky-200 font-body max-w-screen-2xl min-h-screen">
+      <div className="bg-sky-200 font-body min-w-screen-2xl min-h-screen">
         {/* Dùng hidden/visible dựa trên breakpoint */}
         <div className="min-[440px]:hidden">
           <NavbarAdmin />

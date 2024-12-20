@@ -152,7 +152,7 @@ const QuanLyDichVu = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="rounded-xl h-[670px] flex flex-col space-y-4">
+    <div className="rounded-xl h-screen min-h-screen flex flex-col space-y-4">
       <div className="rounded-lg bg-white flex flex-col overflow-auto shadow-md min-h-fit">
         <h1 className="font-bold text-xl mt-2 ml-4">Add service</h1>
         <div className="p-4 flex w-full space-x-6 items-end">

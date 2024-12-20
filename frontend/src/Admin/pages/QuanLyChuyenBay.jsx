@@ -297,7 +297,7 @@ const QuanLyChuyenBay = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="rounded-xl h-[670px] flex flex-col space-y-3">
+    <div className="rounded-xl h-screen min-h-screen flex flex-col space-y-3">
       <div className="block md:flex space-x-0 md:space-x-2 space-y-3 md:space-y-0 h-3/4 overflow-auto">
         <div className="rounded-lg bg-white flex flex-col md:overflow-auto shadow-md md:h-full flex-1">
           <h1 className="font-bold text-xl mt-2 ml-3">Enter flight data</h1>

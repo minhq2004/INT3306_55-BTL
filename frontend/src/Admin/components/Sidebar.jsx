@@ -72,7 +72,7 @@ const Sidebar = () => {
   }, [activeItem]);
 
   return (
-    <div className="flex h-[670px] min-h-screen w-fit z-0">
+    <div className="flex h-auto min-h-screen w-fit z-0">
       <div
         className={`${
           isTextVisible ? "w-60" : "w-20"

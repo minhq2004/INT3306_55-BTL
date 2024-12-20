@@ -167,7 +167,7 @@ const QuanLyTaiKhoan = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="rounded-xl h-[670px] flex flex-col space-y-4">
+    <div className="rounded-xl h-screen min-h-screen flex flex-col space-y-4">
       {/* Danh sách Admin */}
       <div className="h-3/5 p-4 bg-white rounded-lg shadow-md overflow-auto">
         <div className="flex items-center">

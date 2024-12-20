@@ -300,7 +300,7 @@ const DangThongTin = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="rounded-xl h-[670px] flex flex-col space-y-4">
+    <div className="rounded-xl h-screen min-h-screen flex flex-col space-y-4">
       {/* Form đăng bài */}
       <div className="rounded-lg bg-white flex flex-col overflow-auto shadow-md h-full">
         <h1 className="font-bold text-xl mt-2 ml-4">Add post</h1>
