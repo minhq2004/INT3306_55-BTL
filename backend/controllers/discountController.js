@@ -85,9 +85,40 @@ const deleteDiscount = async (req, res) => {
   }
 };
 
+const checkDiscount = async (req, res) => {
+  const { code } = req.body;
+
+  try {
+    // Tìm kiếm mã giảm giá trong cơ sở dữ liệu
+    const discount = await Discount.findOne({ where: { code } });
+
+    if (!discount) {
+      return res.status(404).json({
+        success: false,
+        message: "Discount code does not exist.",
+      });
+    }
+
+    // Nếu tìm thấy mã giảm giá, trả về thông tin
+    return res.status(200).json({
+      success: true,
+      message: "Discount code is valid.",
+      discount,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+      error: error.message,
+    });
+  }
+};
+
+
 module.exports = {
   getAllDiscounts,
   createDiscount,
   updateDiscount,
   deleteDiscount,
+  checkDiscount
 };

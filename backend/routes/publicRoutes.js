@@ -17,7 +17,7 @@ const {
   rcmLocations,
   rcmAllLocations,
 } = require("../controllers/airportController");
-const { getAllDiscounts } = require("../controllers/discountController");
+const { checkDiscount } = require("../controllers/discountController");
 
 //flightController
 // Định nghĩa route
@@ -60,7 +60,10 @@ router.get("/services", getAllServices);
 router.get("/locations/:query", rcmLocations);
 // RCM all location
 router.get("/locations", rcmAllLocations);
-router.get("/discounts", getAllDiscounts);
+
+
+//Check discount
+router.post("/discounts", checkDiscount);
 module.exports = router;
 
 // Tim kiem chuyen bay -> chon 1 chuyen bay -> tra ve danh sach ghe con trong -> public

@@ -607,5 +607,5 @@ module.exports = {
   createFlight,
   updateFlight,
   deleteFlight,
-  getFlightStatistic,
+  getFlightStatistic
 };

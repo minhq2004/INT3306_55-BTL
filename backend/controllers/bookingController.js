@@ -453,105 +453,11 @@ const getBookingStatistics = async (req, res) => {
   }
 };
 
-const getUpcomingBookings = async (req, res) => {
-  const user_id = req.user?.user_id;
-  const { page = 1, limit = 10 } = req.params;
-
-  try {
-    const offset = (page - 1) * limit;
-    const currentTime = new Date();
-
-    // Count total upcoming bookings
-    const count = await Booking.count({
-      where: {
-        user_id: user_id,
-        status: { [Op.in]: ["booked", "paid"] },
-      },
-      include: [{
-        model: Seat,
-        include: [{
-          model: Flight,
-          where: {
-            [Op.and]: [
-              sequelize.literal(
-                `TIMESTAMP(CONCAT(departure_date, ' ', departure_time)) > NOW()`
-              ),
-            ],
-          },
-        }],
-      }],
-    });
-
-    const bookings = await Booking.findAll({
-      where: {
-        user_id: user_id,
-        status: { [Op.in]: ["booked", "paid"] },
-      },
-      limit: limit,
-      offset: offset,
-      include: [
-        {
-          model: User,
-          attributes: ["email", "first_name", "last_name"],
-        },
-        {
-          model: Seat,
-          attributes: ["seat_type"],
-          include: [
-            {
-              model: Flight,
-              attributes: ["flight_number", "departure_date", "departure_time"],
-              where: {
-                [Op.and]: [
-                  sequelize.literal(
-                    `TIMESTAMP(CONCAT(departure_date, ' ', departure_time)) > NOW()`
-                  ),
-                ],
-              },
-              include: [
-                {
-                  model: Airplane,
-                  attributes: ["manufacturer", "model"],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          model: Service,
-          attributes: ["service_name"],
-        },
-      ],
-      order: [
-        [Seat, Flight, "departure_date", "ASC"],
-        [Seat, Flight, "departure_time", "ASC"],
-      ],
-    });
-
-    if (!bookings || bookings.length === 0) {
-      return res.status(404).json({
-        message: "No upcoming bookings found for this user",
-      });
-    }
-
-    res.status(200).json({
-      message: "Upcoming bookings retrieved successfully",
-      totalBookings: count,
-      totalPages: Math.ceil(count / limit),
-      currentPage: Number(page),
-      bookings,
-    });
-  } catch (error) {
-    console.error("Error fetching upcoming bookings:", error.message);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
 module.exports = {
   bookTicket,
   cancelBooking,
   getAllBookings,
   getBookingsByUser,
   payForBooking,
-  getBookingStatistics,
-  getUpcomingBookings
+  getBookingStatistics
 };

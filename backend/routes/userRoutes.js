@@ -8,7 +8,7 @@ const {
   bookTicket,
   cancelBooking,
   getBookingsByUser,
-  payForBooking, getUpcomingBookings,
+  payForBooking
 } = require("../controllers/bookingController");
 const { updateUser, getUserInfo } = require("../controllers/userController");
 
@@ -29,13 +29,6 @@ router.get(
   authenticateToken,
   authorizeRole("user"),
   getBookingsByUser
-);
-
-router.get(
-  "/bookings/user/upcoming",
-  authenticateToken,
-  authorizeRole("user"),
-  getUpcomingBookings
 );
 
 // Thanh toan vé
