@@ -2,6 +2,7 @@ import { MapPin, Armchair, Luggage, Ticket, CreditCard } from "lucide-react";
 import { Card, CardBody } from "@nextui-org/react";
 
 const BookingGuide = () => {
+  // Khai báo các bước trong quy trình đặt chỗ
   const steps = [
     {
       icon: Armchair,

@@ -13,13 +13,13 @@ const DateInput = ({ value, onChange, placeholder }) => {
   const [isSelectingYear, setIsSelectingYear] = useState(false);
 
   const formatDisplayDate = (dateString) => {
-    if (!dateString) return "";
-    const [year, month, day] = dateString.split("-");
-    return `${day}/${month}/${year}`;
+    if (!dateString) return ""; // Nếu không có dateString, trả về chuỗi rỗng
+    const [year, month, day] = dateString.split("-"); // Tách năm, tháng, ngày từ chuỗi dateString
+    return `${day}/${month}/${year}`; // Định dạng lại ngày tháng năm
   };
 
   const handleDateChange = (dateStr) => {
-    onChange(dateStr);
+    onChange(dateStr); // Gọi hàm onChange với giá trị dateStr
   };
 
   const changeMonth = (offset) => {
@@ -44,8 +44,8 @@ const DateInput = ({ value, onChange, placeholder }) => {
   ];
 
   const generateYearRange = () => {
-    const currentYear = new Date().getFullYear();
-    return Array.from({ length: 12 }, (_, i) => currentYear + i);
+    const currentYear = new Date().getFullYear(); // Lấy năm hiện tại
+    return Array.from({ length: 12 }, (_, i) => currentYear + i); // Tạo mảng 12 năm từ năm hiện tại
   };
 
   const renderYearSelector = () => (
@@ -53,7 +53,7 @@ const DateInput = ({ value, onChange, placeholder }) => {
       <div className="grid grid-cols-3 gap-2">
         {generateYearRange().map((year) => (
           <button
-            key={year}
+            key={year} // Khóa duy nhất cho mỗi năm
             onClick={() => {
               setCurrentDate(new Date(year, currentDate.getMonth()));
               setIsSelectingYear(false);

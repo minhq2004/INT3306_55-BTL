@@ -130,7 +130,7 @@ const FlightServices = ({ selectedServiceId, onServiceChange }) => {
 };
 const SeatModal = ({ flightId, isOpen, onClose, selectedType }) => {
   const [seats, setSeats] = useState([]);
-  const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [selectedServiceId, setSelectedServiceId] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [discount, setDiscount] = useState(null);
@@ -236,7 +236,7 @@ const SeatModal = ({ flightId, isOpen, onClose, selectedType }) => {
       fetchSeats();
     }
     return () => {
-      setSelectedServiceId(null);
+      setSelectedServiceId(1);
       resetSeats();
       setBookingSuccess(false);
     };
@@ -270,14 +270,26 @@ const SeatModal = ({ flightId, isOpen, onClose, selectedType }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const seatsWithService = selectedSeats.map((seat) => ({
-        seat_id: seat.seat_id,
-        service_id: selectedServiceId,
-        discount_code: discount.code,
-      }));
+      const seatsWithService = selectedSeats.map((seat) => {
+        // Đối tượng đặt chỗ cơ sở với seat_id bắt buộc
+        const booking = {
+          seat_id: seat.seat_id,
+        };
 
-      console.log("Booking data being sent:", seatsWithService);
-      // Gửi request đặt vé với token
+        // Chỉ thêm service_id nếu dịch vụ được chọn
+        if (selectedServiceId) {
+          booking.service_id = selectedServiceId;
+        }
+
+        // Chỉ thêm discount_code nếu đã áp dụng giảm giá
+        if (discount?.code) {
+          booking.discount_code = discount.code;
+        }
+
+        return booking;
+      });
+
+      // Đặt tất cả chỗ ngồi
       for (const booking of seatsWithService) {
         await axios.post("http://localhost:3000/api/user/bookings", booking, {
           headers: {
@@ -285,9 +297,8 @@ const SeatModal = ({ flightId, isOpen, onClose, selectedType }) => {
           },
         });
       }
-      setBookingSuccess(true);
-      // Gọi API lấy thông tin chuyến bay mới nhất
 
+      setBookingSuccess(true);
       setShowConfirmModal(false);
       setShowSuccessModal(true);
       setDiscount(null);

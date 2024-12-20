@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import FullFlighList from "./KhachHang/components/FlighList";
 import Login from "./KhachHang/pages/Login.jsx";
 import SignUp from "./KhachHang/pages/SignUp.jsx";
-import SeatMap from "./KhachHang/components/SeatMap.jsx";
 import SearchResults from "./KhachHang/components/SearchResults.jsx";
 import AdminPage from "./Admin/pages/AdminPage.jsx";
 import UserBooking from "./KhachHang/pages/UserBooking.jsx";
@@ -14,14 +13,51 @@ import { BlogList, BlogDetail } from "./KhachHang/pages/Post.jsx";
 import UserProfile from "./KhachHang/pages/UserProfile.jsx";
 import { ToastContainer } from "react-toastify";
 import { Toaster } from "sonner";
-import UpcomingBookings from "./KhachHang/pages/UpcomingBookings.jsx";
 import { Helmet } from "react-helmet";
+import NotFound from "./KhachHang/components/NotFound.jsx";
+
 const App = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
   const isAdminRoute = location.pathname.startsWith("/admin");
 
-  // If we're on the login page, render only the login component
+  // Tất cả các routes động (có params) cần được định nghĩa pattern
+  const dynamicRoutePatterns = [
+    /^\/blog\/[^/]+$/, // Matches /blog/{category}
+    /^\/blog\/post\/[^/]+$/, // Matches /blog/post/{postId}
+    /^\/flights\/oneway\/[^/]+\/[^/]+\/[^/]+\/[^/]+$/,
+    /^\/flights\/roundtrip\/[^/]+\/[^/]+\/[^/]+\/[^/]+\/[^/]+$/,
+  ];
+  // Routes tĩnh
+  const staticRoutes = [
+    "/",
+    "/blog",
+    "/login",
+    "/signup",
+    "/fullList",
+    "/userbooking",
+    "/userprofile",
+  ];
+
+  // Kiểm tra xem path hiện tại có match với bất kỳ pattern nào không
+  const isValidRoute =
+    staticRoutes.includes(location.pathname) || // Kiểm tra routes tĩnh
+    dynamicRoutePatterns.some((pattern) => pattern.test(location.pathname)) || // Kiểm tra routes động
+    isAdminRoute; // Admin routes
+
+  // Nếu route không hợp lệ, hiển thị 404
+  if (!isValidRoute) {
+    return (
+      <>
+        <Helmet>
+          <title>404 - Page Not Found</title>
+        </Helmet>
+        <NotFound />
+      </>
+    );
+  }
+
+  // Các phần còn lại của code giữ nguyên
   if (isLoginPage) {
     return (
       <>
@@ -59,7 +95,6 @@ const App = () => {
     );
   }
 
-  // Otherwise render the normal layout with navbar and footer
   return (
     <>
       <Helmet>
@@ -90,14 +125,10 @@ const App = () => {
           <Navbar />
           <div className="max-w-[1440px] mx-auto px-4">
             <Routes>
-              <Route path="/blog" element={<BlogList />} />
-              <Route path="/blog/:postId" element={<BlogDetail />} />
+              <Route path="/blog/:category" element={<BlogList />} />
+              <Route path="/blog/post/:postId" element={<BlogDetail />} />
               <Route path="/" element={<Flights />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/fullList" element={<FullFlighList />} />
-              <Route path="/seatmap" element={<SeatMap />} />
-              <Route path="/upcoming" element={<UpcomingBookings />} />
-
               <Route
                 path="/flights/oneway/:departure/:destination/:departure_time/:amount"
                 element={<SearchResults />}
@@ -108,7 +139,6 @@ const App = () => {
               />
               <Route path="/userbooking" element={<UserBooking />} />
               <Route path="/userprofile" element={<UserProfile />} />
-              <Route path="/admin/*" element={<AdminPage />} />
             </Routes>
           </div>
           <Footer />

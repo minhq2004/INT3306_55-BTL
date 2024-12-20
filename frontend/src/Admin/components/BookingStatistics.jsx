@@ -27,10 +27,14 @@ ChartJS.register(
 );
 
 const BookingStatistics = () => {
+  // State quản lý biến thống kê
   const [statistics, setStatistics] = useState({});
+
+  // Các state quản lý lỗi và tải
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch dữ liệu thống kê từ server
   const fetchStatistics = async () => {
     try {
       const response = await axios.get(
@@ -56,7 +60,7 @@ const BookingStatistics = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  // Các giá trị mặc định để tránh lỗi null/undefined
+  // Khởi tạo các giá trị mặc định để tránh lỗi null/undefined
   const {
     totalBookings = 0,
     totalRevenuePaid = 0,
@@ -160,18 +164,18 @@ const BookingStatistics = () => {
     },
   };
 
-  // Pie chart data for bookings per seat type
+  // Pie chart dữ liệu cho đặt vé theo hạng ghế
   const pieBookingSeatData = {
     labels: Object.keys(bookingsPerSeatType || {}), // ["economy", "business", "first class"]
     datasets: [
       {
-        data: Object.values(bookingsPerSeatType || {}), // [11, 2, 5]
-        backgroundColor: ["#06d6a0", "#f27a7d", "#ffd166"], // Colors for each seat type
+        data: Object.values(bookingsPerSeatType || {}),
+        backgroundColor: ["#06d6a0", "#f27a7d", "#ffd166"],
       },
     ],
   };
 
-  // Pie chart options
+  // Pie chart tùy chọn
   const pieBookingSeatDataOptions = {
     plugins: {
       legend: {
@@ -192,7 +196,7 @@ const BookingStatistics = () => {
     },
   };
 
-  // Bar chart data (Bookings per flight)
+  // Bar chart dữ liệu
   const barDataBookings = {
     labels: Object.keys(bookingsPerFlight),
     datasets: [
@@ -232,11 +236,9 @@ const BookingStatistics = () => {
     <div>
       <div className="grid grid-cols-1 xl:grid-cols-4 md:grid-cols-2 gap-3">
         <div className="p-4 w-full overflow-hidden bg-white rounded-lg shadow-md">
-          {/* Tổng số lượng booking và tổng doanh thu */}
           <div className="mb-2">
             <p className="text-lg font-bold">Total Bookings: {totalBookings}</p>
           </div>
-          {/* Pie Chart: Bookings by Status */}
           <div className="mb-2">
             <h2 className="text-lg font-medium mb-2">Bookings by Status</h2>
             <div className="w-56 h-auto m-auto">
@@ -246,13 +248,11 @@ const BookingStatistics = () => {
         </div>
 
         <div className="p-4 w-full overflow-hidden bg-white rounded-lg shadow-md">
-          {/* Tổng số lượng booking và tổng doanh thu */}
           <div className="mb-2">
             <p className="text-lg font-bold">
               Total Revenue (Paid): {totalRevenuePaid.toLocaleString()} ₫
             </p>
           </div>
-          {/* Bar Chart: Revenue by Seat Type */}
           <div className="mb-2">
             <h2 className="text-lg font-medium mb-2">Revenue by Seat Type</h2>
             <div className="mt-12 w-full">
@@ -261,7 +261,6 @@ const BookingStatistics = () => {
           </div>
         </div>
         <div className="p-4 w-full overflow-hidden bg-white rounded-lg shadow-md">
-          {/* Bar Chart: Bookings per Flight */}
           <div>
             <h2 className="text-lg font-semibold mb-2">Bookings by Seat</h2>
             <div className="w-56 h-auto mt-12 m-auto">
@@ -273,7 +272,6 @@ const BookingStatistics = () => {
           </div>
         </div>
         <div className="p-4 w-full overflow-hidden bg-white rounded-lg shadow-md">
-          {/* Bar Chart: Bookings per Flight */}
           <div>
             <h2 className="text-lg font-semibold mb-2">Bookings per Flight</h2>
             <div className="mt-24 w-full">

@@ -17,12 +17,12 @@ import axios from "axios";
 import { Helmet } from "react-helmet";
 
 const FlightList = () => {
-  const [flights, setFlights] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [flights, setFlights] = useState([]); // Khai báo state cho danh sách chuyến bay
+  const [loading, setLoading] = useState(true); // Khai báo state cho trạng thái loading
+  const [error, setError] = useState(null); // Khai báo state cho lỗi
+  const [currentPage, setCurrentPage] = useState(1); // Khai báo state cho trang hiện tại
+  const [totalPages, setTotalPages] = useState(1); // Khai báo state cho tổng số trang
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024); // Khai báo state để kiểm tra thiết bị di động
 
   useEffect(() => {
     const handleResize = () => {

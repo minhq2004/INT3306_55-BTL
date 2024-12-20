@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 
 const useFlightStore = create((set, get) => ({
-  // Search Parameters
+  // Tham số tìm kiếm chuyến bay
   searchParams: {
     departure: "",
     destination: "",
@@ -12,23 +12,23 @@ const useFlightStore = create((set, get) => ({
       adults: 1,
       minors: 0,
     },
-    passengersDisplay: "1 Adult - 0 Minor",
+    passengersDisplay: "1 Adult - 0 Minor", // Hiển thị số lượng hành khách
   },
 
-  // Flight Results
+  // Kết quả tìm kiếm chuyến bay
   oneWayFlights: [],
   outboundFlights: [],
   inboundFlights: [],
   loading: false,
   error: null,
 
-  // Selected Flight & Booking
+  // Thông tin chuyến bay và đặt chỗ đã chọn
   selectedFlight: null,
   selectedTicketType: null,
   selectedSeat: null,
   selectedSeats: [],
 
-  // Search Parameters Actions
+  // Các hàm xử lý tham số tìm kiếm
   setSearchParams: (params) => {
     set((state) => ({
       searchParams: {
@@ -38,6 +38,7 @@ const useFlightStore = create((set, get) => ({
     }));
   },
 
+  // Cập nhật số lượng hành khách
   updatePassengers: (adults, minors) => {
     set((state) => ({
       searchParams: {
@@ -51,6 +52,7 @@ const useFlightStore = create((set, get) => ({
     }));
   },
 
+  // Thiết lập tham số tìm kiếm từ URL
   setSearchParamsFromUrl: (params) => {
     const amount = parseInt(params.amount, 10) || 1;
 
@@ -70,7 +72,7 @@ const useFlightStore = create((set, get) => ({
     }));
   },
 
-  // Flight Search Actions
+  // Tìm kiếm chuyến bay một chiều
   searchOneWayFlights: async () => {
     const { searchParams } = get();
     const totalPassengers =
@@ -99,6 +101,7 @@ const useFlightStore = create((set, get) => ({
     }
   },
 
+  // Tìm kiếm chuyến bay khứ hồi
   searchRoundtripFlights: async () => {
     const { searchParams } = get();
     const totalPassengers =
@@ -124,90 +127,97 @@ const useFlightStore = create((set, get) => ({
     }
   },
 
-  // Selection Actions
-  selectFlight: (flight, ticketType) => {
-    set({
-      selectedFlight: flight,
-      selectedTicketType: ticketType,
-    });
-  },
+// Các hàm xử lý lựa chọn
+selectFlight: (flight, ticketType) => {
+  set({
+    selectedFlight: flight,
+    selectedTicketType: ticketType,
+  });
+},
 
-  selectSeat: (seat) => {
-    set({ selectedSeat: seat });
-  },
+// Chọn ghế ngồi
+selectSeat: (seat) => {
+  set({ selectedSeat: seat });
+},
 
-  addSelectedSeat: (seat) =>
-    set((state) => ({
-      selectedSeats: [...state.selectedSeats, seat],
-    })),
+// Thêm ghế đã chọn vào danh sách
+addSelectedSeat: (seat) =>
+  set((state) => ({
+    selectedSeats: [...state.selectedSeats, seat],
+  })),
 
-  removeSelectedSeat: (seatId) =>
-    set((state) => ({
-      selectedSeats: state.selectedSeats.filter((s) => s.seat_id !== seatId),
-    })),
+// Xóa ghế khỏi danh sách đã chọn
+removeSelectedSeat: (seatId) =>
+  set((state) => ({
+    selectedSeats: state.selectedSeats.filter((s) => s.seat_id !== seatId),
+  })),
 
-  resetSeats: () => set({ selectedSeats: [] }),
+// Đặt lại danh sách ghế đã chọn
+resetSeats: () => set({ selectedSeats: [] }),
 
-  // Reset Actions
-  resetSelection: () => {
-    set({
-      selectedFlight: null,
-      selectedTicketType: null,
-      selectedSeat: null,
-      selectedSeats: [],
-    });
-  },
+// Các hàm đặt lại trạng thái
+resetSelection: () => {
+  set({
+    selectedFlight: null,
+    selectedTicketType: null,
+    selectedSeat: null,
+    selectedSeats: [],
+  });
+},
 
-  resetSearch: () => {
-    set({
-      oneWayFlights: [],
-      outboundFlights: [],
-      inboundFlights: [],
-      error: null,
-      selectedFlight: null,
-      selectedTicketType: null,
-      selectedSeat: null,
-      selectedSeats: [],
-    });
-  },
+// Đặt lại kết quả tìm kiếm
+resetSearch: () => {
+  set({
+    oneWayFlights: [],
+    outboundFlights: [],
+    inboundFlights: [],
+    error: null,
+    selectedFlight: null,
+    selectedTicketType: null,
+    selectedSeat: null,
+    selectedSeats: [],
+  });
+},
 
-  // Utility Getters
-  getTotalPassengers: () => {
-    const { searchParams } = get();
-    return searchParams.passengers.adults + searchParams.passengers.minors;
-  },
+// Lấy tổng số hành khách
+getTotalPassengers: () => {
+  const { searchParams } = get();
+  return searchParams.passengers.adults + searchParams.passengers.minors;
+},
 
-  getAvailableSeats: () => {
-    const { selectedFlight, selectedTicketType } = get();
-    if (!selectedFlight || !selectedTicketType) return 0;
+// Lấy số ghế còn trống theo loại vé
+getAvailableSeats: () => {
+  const { selectedFlight, selectedTicketType } = get();
+  if (!selectedFlight || !selectedTicketType) return 0;
 
-    switch (selectedTicketType.toLowerCase()) {
-      case "economy":
-        return selectedFlight.economy_available;
-      case "business":
-        return selectedFlight.business_available;
-      case "first class":
-        return selectedFlight.first_class_available;
-      default:
-        return 0;
-    }
-  },
+  switch (selectedTicketType.toLowerCase()) {
+    case "economy":
+      return selectedFlight.economy_available;
+    case "business":
+      return selectedFlight.business_available;
+    case "first class":
+      return selectedFlight.first_class_available;
+    default:
+      return 0;
+  }
+},
 
-  getTicketPrice: () => {
-    const { selectedFlight, selectedTicketType } = get();
-    if (!selectedFlight || !selectedTicketType) return 0;
+// Lấy giá vé theo loại vé đã chọn
+getTicketPrice: () => {
+  const { selectedFlight, selectedTicketType } = get();
+  if (!selectedFlight || !selectedTicketType) return 0;
 
-    switch (selectedTicketType.toLowerCase()) {
-      case "economy":
-        return selectedFlight.economy_price;
-      case "business":
-        return selectedFlight.business_price;
-      case "first class":
-        return selectedFlight.first_class_price;
-      default:
-        return 0;
-    }
-  },
+  switch (selectedTicketType.toLowerCase()) {
+    case "economy":
+      return selectedFlight.economy_price;
+    case "business":
+      return selectedFlight.business_price;
+    case "first class":
+      return selectedFlight.first_class_price;
+    default:
+      return 0;
+  }
+},
 }));
 
 export default useFlightStore;

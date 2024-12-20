@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+// Tạo context để quản lý trạng thái xác thực
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {

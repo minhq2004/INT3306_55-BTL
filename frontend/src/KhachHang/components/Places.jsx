@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Card, CardBody, Button, Image } from "@nextui-org/react";
 import { ChevronRight, ArrowRight } from "lucide-react";
 
-// API configuration
-const API_KEY = 'B43gtozbhTgx8yrT7nahGz3TvskudK0pieUqDWOZjNw';
-const API_URL = 'https://api.unsplash.com/search/photos';
+// Cấu hình API
+const API_KEY = "B43gtozbhTgx8yrT7nahGz3TvskudK0pieUqDWOZjNw";
+const API_URL = "https://api.unsplash.com/search/photos";
 
 const PlacesCard = ({ image, title, name, desc, onBooking }) => {
   return (
@@ -51,7 +50,6 @@ const PlacesCard = ({ image, title, name, desc, onBooking }) => {
 };
 
 const Places = () => {
-  const navigate = useNavigate();
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -60,23 +58,23 @@ const Places = () => {
       try {
         const destinationsData = [
           {
-            query: 'Ha Long Bay Vietnam',
-            title: 'Experience the limestone karsts in',
-            name: 'Vietnam',
-            desc: 'Ha Long Bay features thousands of limestone karsts and isles in various shapes and sizes, forming a spectacular seascape of limestone pillars.'
+            query: "Ha Long Bay Vietnam",
+            title: "Experience the limestone karsts in",
+            name: "Vietnam",
+            desc: "Ha Long Bay features thousands of limestone karsts and isles in various shapes and sizes, forming a spectacular seascape of limestone pillars.",
           },
           {
-            query: 'Grand Canyon USA',
-            title: 'Explore the natural wonder in',
-            name: 'United States',
-            desc: 'The Grand Canyon, carved by the Colorado River, is a testament to 2 billion years of geological history and one of America\'s most iconic landscapes.'
+            query: "Grand Canyon USA",
+            title: "Explore the natural wonder in",
+            name: "United States",
+            desc: "The Grand Canyon, carved by the Colorado River, is a testament to 2 billion years of geological history and one of America's most iconic landscapes.",
           },
           {
-            query: 'Cotswolds England',
-            title: 'Discover the countryside in',
-            name: 'England',
-            desc: 'The Cotswolds, with its honey-colored cottages and rolling hills, represents the quintessential English countryside and traditional village life.'
-          }
+            query: "Cotswolds England",
+            title: "Discover the countryside in",
+            name: "England",
+            desc: "The Cotswolds, with its honey-colored cottages and rolling hills, represents the quintessential English countryside and traditional village life.",
+          },
         ];
 
         const placesData = await Promise.all(
@@ -85,14 +83,14 @@ const Places = () => {
               `${API_URL}?query=${dest.query}&client_id=${API_KEY}&per_page=1`
             );
 
-            if (!response.ok) throw new Error('Failed to fetch images');
+            if (!response.ok) throw new Error("Failed to fetch images");
 
             const data = await response.json();
             const image = data.results[0]?.urls?.regular;
 
             return {
               ...dest,
-              image: image || '/placeholder-image.jpg'
+              image: image || "/placeholder-image.jpg",
             };
           })
         );
@@ -100,23 +98,17 @@ const Places = () => {
         setPlaces(placesData);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching places:', err);
+        console.error("Error fetching places:", err);
         setLoading(false);
       }
     };
 
     fetchPlaces();
   }, []);
-
-  const handleSeeAllClick = (e) => {
-    e.preventDefault();
-    navigate("/hotels");
-  };
-
   const handleBooking = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
@@ -126,7 +118,10 @@ const Places = () => {
         <div className="bg-white/70 backdrop-blur-md rounded-3xl p-8 md:p-12">
           <div className="grid md:grid-cols-3 gap-8">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="w-full h-[400px] bg-gray-200 animate-pulse rounded-lg"></div>
+              <div
+                key={i}
+                className="w-full h-[400px] bg-gray-200 animate-pulse rounded-lg"
+              ></div>
             ))}
           </div>
         </div>
@@ -143,10 +138,7 @@ const Places = () => {
             <span className="text-black"> places to stay</span>
           </h2>
 
-          <button
-            className="flex items-center space-x-2 cursor-pointer group bg-white/5 px-6 py-3 rounded-full hover:bg-white/10 transition-all"
-            onClick={handleSeeAllClick}
-          >
+          <button className="flex items-center space-x-2 cursor-pointer group bg-white/5 px-6 py-3 rounded-full hover:bg-white/10 transition-all">
             <span className="text-black/80 font-medium group-hover:text-white transition-colors">
               View All
             </span>

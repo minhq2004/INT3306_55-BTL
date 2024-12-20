@@ -4,7 +4,7 @@ import axios from "axios";
 import { Card, CardHeader, CardBody, Button } from "@nextui-org/react";
 import { PlaneTakeoff, PlaneLanding } from "lucide-react";
 
-// Separate Flight Card Component
+// Component các thẻ thông tin chuyến bay
 const FlightCard = ({ flight, isRoundTrip = false }) => {
   return (
     <Card key={flight.flight_id} className="mb-4">
@@ -45,13 +45,19 @@ const FlightCard = ({ flight, isRoundTrip = false }) => {
   );
 };
 
+// Component chính hiển thị kết quả tìm kiếm chuyến bay
 const FlightResults = () => {
+  // State quản lý dữ liệu chuyến bay
   const [flightData, setFlightData] = useState({
-    outboundFlights: [],
-    inboundFlights: [],
+    outboundFlights: [], // Chuyến bay đi
+    inboundFlights: [], // Chuyến bay về
   });
+
+  // State loading và error
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Lấy tham số từ url
   const { departure, destination, departure_time, return_time, amount } =
     useParams();
 
@@ -61,9 +67,9 @@ const FlightResults = () => {
         setIsLoading(true);
         let response;
 
-        // Determine if it's a one-way or round-trip search
+        // Xác đinh 1 chiều hay khứ hồi
         if (return_time) {
-          // Round-trip flight search
+          // Tìm kiếm khứ hồi
           response = await axios.get(
             `http://localhost:3000/api/public/flights/roundtrip/${departure}/${destination}/${departure_time}/${return_time}/${amount}`
           );
@@ -72,7 +78,7 @@ const FlightResults = () => {
             inboundFlights: response.data.inboundFlights || [],
           });
         } else {
-          // One-way flight search
+          // Tìm kiếm một chiều
           response = await axios.get(
             `http://localhost:3000/api/public/flights/oneway/${departure}/${destination}/${departure_time}/${amount}`
           );

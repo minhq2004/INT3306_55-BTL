@@ -107,7 +107,7 @@ const UserProfile = () => {
       const { user: updatedUser } = response.data;
 
       setUser(updatedUser);
-
+      localStorage.setItem("user", JSON.stringify(updatedUser));
       toast.success("Cập nhật thông tin thành công!", {
         position: "top-right",
         autoClose: 3000,

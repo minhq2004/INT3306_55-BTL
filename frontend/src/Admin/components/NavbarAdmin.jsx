@@ -1,28 +1,35 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+// Lấy thông tin admin từ localStorage
 const admin = localStorage.getItem("admin");
 
 const Navbar = () => {
+  // Quản lý trạng thái đóng/mở của menu
   const [isOpen, setIsOpen] = useState(false);
 
+  // Hàm chuyển đổi trạng thái menu
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  // Đóng menu khi click vào một mục
   const handleMenuItemClick = () => {
     setIsOpen(false);
   };
 
+  // Xử lý đăng xuất
   const handleLogout = () => {
     const confirmLogout = window.confirm(
-      "Are you sure you want to log out of your session?"
+      "Bạn có chắc chắn muốn đăng xuất không?"
     );
 
     if (confirmLogout) {
+      // Xóa tất cả thông tin đăng nhập khỏi localStorage
       localStorage.removeItem("adminToken");
       localStorage.removeItem("admin");
-      toast.success("Logout successfully!");
+      localStorage.removeItem("activeItem");
+      toast.success("Đăng xuất thành công!");
     }
   };
 

@@ -4,7 +4,7 @@ import Places from "../components/Places";
 const Flights = () => {
   return (
     <main className="min-h-screen">
-      {/* Hero section with appropriate spacing */}
+      {/* Hero section */}
       <section className="pt-20">
         <Hero />
       </section>

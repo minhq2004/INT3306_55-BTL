@@ -5,15 +5,18 @@ import axios from "axios";
 const SeatContext = createContext();
 
 export const SeatProvider = ({ children }) => {
-  const [seats, setSeats] = useState([]);
-  const [selectedSeats, setSelectedSeats] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [seatType, setSeatType] = useState(null);
-  const [passengerCount, setPassengerCount] = useState(0);
-  const [seatPrice, setSeatPrice] = useState(0);
+  // Các state quản lý thông tin ghế
+  const [seats, setSeats] = useState([]); // Danh sách tất cả các ghế
+  const [selectedSeats, setSelectedSeats] = useState([]); // Danh sách ghế đã chọn
+  const [loading, setLoading] = useState(false); // Trạng thái đang tải
+  const [error, setError] = useState(null); // Thông tin lỗi
+  const [seatType, setSeatType] = useState(null); // Loại ghế (thương gia/phổ thông)
+  const [passengerCount, setPassengerCount] = useState(0); // Số lượng hành khách
+  const [seatPrice, setSeatPrice] = useState(0); // Giá ghế
 
+  // Sắp xếp ghế theo hàng và vị trí
   const organizeSeats = (seatsData) => {
+    // Tạo object lưu trữ ghế theo hàng
     const rows = {};
     seatsData.forEach((seat) => {
       const rowNumber = seat.seat_number.slice(0, -1);
@@ -22,14 +25,16 @@ export const SeatProvider = ({ children }) => {
       }
       rows[rowNumber].push({
         ...seat,
-        status: seat.status || "available",
+        status: seat.status || "available", // Gán trạng thái mặc định nếu chưa có
       });
     });
 
+    // Sắp xếp ghế trong mỗi hàng theo thứ tự chữ cái
     Object.values(rows).forEach((row) => {
       row.sort((a, b) => a.seat_number.localeCompare(b.seat_number));
     });
 
+    // Chuyển đổi thành mảng và sắp xếp theo số thứ tự hàng
     return Object.entries(rows)
       .sort(([a], [b]) => parseInt(a) - parseInt(b))
       .map(([rowNumber, seats]) => ({
@@ -38,6 +43,7 @@ export const SeatProvider = ({ children }) => {
       }));
   };
 
+  // Lấy thông tin ghế từ API
   const fetchSeats = async (flightId, type) => {
     try {
       setLoading(true);
@@ -58,18 +64,22 @@ export const SeatProvider = ({ children }) => {
     }
   };
 
+  // Xử lý chọn/bỏ chọn ghế
   const selectSeat = (seatId) => {
     setSelectedSeats((prev) => {
       if (prev.includes(seatId)) {
+        // Nếu ghế đã được chọn, bỏ chọn ghế đó
         return prev.filter((id) => id !== seatId);
       }
       if (prev.length < passengerCount) {
+        // Nếu chưa đủ số lượng ghế cần chọn, thêm ghế mới
         return [...prev, seatId];
       }
       return prev;
     });
   };
 
+  // Khởi tạo thông tin chọn ghế
   const initializeSelection = ({ type, count, price }) => {
     setSeatType(type);
     setPassengerCount(count);
@@ -78,13 +88,16 @@ export const SeatProvider = ({ children }) => {
     setError(null);
   };
 
+  // Đặt lại trạng thái chọn ghế
   const resetSelection = () => {
     setSelectedSeats([]);
     setError(null);
   };
 
+  // Tính tổng giá tiền các ghế đã chọn
   const getTotalPrice = () => selectedSeats.length * seatPrice;
 
+  // Giá trị context được cung cấp cho các component con
   return (
     <SeatContext.Provider
       value={{
@@ -107,6 +120,7 @@ export const SeatProvider = ({ children }) => {
   );
 };
 
+// Hook tùy chỉnh để sử dụng SeatContext
 export const useSeat = () => {
   const context = useContext(SeatContext);
   if (!context) {

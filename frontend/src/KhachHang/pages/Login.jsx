@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAuth } from "../../contexts/AuthContext.jsx"; // Import the useAuth hook
+import { useAuth } from "../../contexts/AuthContext.jsx"; // Import useAuth hook
 
 function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const { login, loading } = useAuth(); // Use the login and loading from AuthContext
+  const { login, loading } = useAuth(); // Dùng login và loading từ AuthContext
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,11 +23,11 @@ function Login() {
     e.preventDefault();
 
     try {
-      // Use the login method from AuthContext
+      // Sử dụng phương thức đăng nhập từ AuthContext
       await login(formData);
     } catch (error) {
-      // Error handling is now done in the AuthContext login method
-      // No additional error handling needed here
+      // Xử lý lỗi hiện đã được thực hiện trong phương thức đăng nhập AuthContext
+      // Không cần xử lý lỗi bổ sung ở đây
     }
   };
 

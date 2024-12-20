@@ -1,107 +1,71 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Input, Button, Card, CardBody } from "@nextui-org/react";
 import { CheckCircle2, TicketPercent, X } from "lucide-react";
 import { toast } from "sonner";
+import axios from "axios";
 
 const CouponApply = ({ discount, setDiscount }) => {
   const [couponCode, setCouponCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [activeDiscounts, setActiveDiscounts] = useState([]);
 
-  useEffect(() => {
-    const fetchDiscounts = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          "http://localhost:3000/api/public/discounts"
-        );
-        const data = await response.json();
-        setLoading(false);
-        setActiveDiscounts(data);
-      } catch (err) {
-        setError("Có lỗi xảy ra khi tải mã giảm giá");
-        toast.error("Có lỗi xảy ra");
-      }
-    };
-    fetchDiscounts();
-  }, []);
-
-  const handleApplyCoupon = () => {
+  const handleApplyCoupon = async () => {
     if (!couponCode.trim()) {
       setError("Vui lòng nhập mã giảm giá");
       return;
     }
 
-    const selectedDiscount = activeDiscounts.find(
-      (d) => d.code === couponCode.trim()
-    );
+    setLoading(true);
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3000/api/public/discounts",
+        {
+          code: couponCode.trim(),
+        }
+      );
 
-    if (selectedDiscount) {
-      setDiscount(selectedDiscount);
-      setError("");
-      toast.success("Áp dụng mã giảm giá thành công!");
-    } else {
-      setError("Mã giảm giá không hợp lệ");
-      toast.error("Mã giảm giá không hợp lệ");
+      if (data.success) {
+        setDiscount(data.discount); // Thiết lập giá trị giảm giá
+        setError(""); // Xóa thông báo lỗi
+        toast.success(data.message); // Hiển thị thông báo thành công
+      }
+    } catch (err) {
+      setError("Mã giảm giá không hợp lệ"); // Thiết lập thông báo lỗi
+      toast.error(err.response?.data?.message || "Mã giảm giá không hợp lệ"); // Hiển thị thông báo lỗi
+      setDiscount(null); // Xóa giá trị giảm giá
+    } finally {
+      setLoading(false); // Kết thúc trạng thái loading
     }
   };
 
   return (
     <Card>
-      <CardBody className="p-3 h-44">
+      <CardBody className="p-3 h-28">
         <div className="flex items-center gap-2 mb-3">
           <TicketPercent className="w-4 h-4 text-gray-600" />
           <h3 className="text-sm font-medium">Mã giảm giá</h3>
         </div>
 
-        {!discount ? (
-          <div className="space-y-3">
-            <div className="flex gap-2">
-              <Input
-                value={couponCode}
-                onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-                placeholder="Nhập mã giảm giá"
-                className="flex-1"
-                size="sm"
-                errorMessage={error}
-                isInvalid={!!error}
-              />
-              <Button
-                color="primary"
-                size="sm"
-                isLoading={loading}
-                onClick={handleApplyCoupon}
-                className="min-w-[80px]"
-              >
-                Áp dụng
-              </Button>
-            </div>
-
-            {activeDiscounts.length > 0 && (
-              <div className="space-y-1.5">
-                <p className="text-xs text-gray-600 font-medium">
-                  Ưu đãi hiện có:
-                </p>
-                <div className="space-y-1">
-                  {activeDiscounts.map((d) => (
-                    <div
-                      key={d.code}
-                      className="flex items-center gap-2 text-sm text-gray-600"
-                    >
-                      <div className="w-4 h-4 rounded-full bg-blue-100 flex items-center justify-center">
-                        <span className="text-blue-600 text-xs">
-                          {activeDiscounts.indexOf(d) + 1}
-                        </span>
-                      </div>
-                      <span>
-                        Giảm {d.discount_percentage}% - Mã: {d.code}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+        {!discount ? ( // Kiểm tra nếu không có giảm giá
+          <div className="flex gap-2">
+            <Input
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+              placeholder="Nhập mã giảm giá"
+              className="flex-1"
+              size="sm"
+              errorMessage={error}
+              isInvalid={!!error}
+            />
+            <Button
+              color="primary"
+              size="sm"
+              isLoading={loading}
+              onClick={handleApplyCoupon}
+              className="min-w-[80px]"
+            >
+              Áp dụng
+            </Button>
           </div>
         ) : (
           <div className="flex items-center justify-between bg-green-50 p-2 rounded-lg">

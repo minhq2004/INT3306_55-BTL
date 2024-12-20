@@ -11,12 +11,14 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
-// Constants
+
+// Các biến hằng
 const SLIDESHOW_INTERVAL = 5000;
 const API_ENDPOINT = "http://localhost:3000/api/auth/register";
 const UNSPLASH_API = "https://api.unsplash.com/search/photos";
 const UNSPLASH_ACCESS_KEY = "B43gtozbhTgx8yrT7nahGz3TvskudK0pieUqDWOZjNw";
 
+// Danh sách các điểm đến dùng cho slideshow
 const travelDestinations = [
   {
     query: "Premium Travel Experience First Class",
@@ -45,6 +47,7 @@ const travelDestinations = [
   },
 ];
 
+// Trạng thái mặc định cho form đăng ký
 const initialFormState = {
   first_name: "",
   last_name: "",
@@ -58,7 +61,7 @@ const initialFormState = {
   passport: "",
 };
 
-// Reusable Components
+// Component tái sử dụng để tạo các ô nhập liệu
 const FormInput = ({ label, icon: Icon, ...props }) => (
   <div className="relative group">
     {Icon && (
@@ -87,28 +90,30 @@ const FormInput = ({ label, icon: Icon, ...props }) => (
 );
 
 const Slideshow = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [slides, setSlides] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0); // Vị trí ảnh hiện tại
+  const [slides, setSlides] = useState([]); // Danh sách ảnh trong slideshow
+  const [isLoading, setIsLoading] = useState(true); // Trạng thái tải dữ liệu
 
+  // Lấy ảnh từ Unsplash API khi component được mount
   useEffect(() => {
     const fetchImages = async () => {
       try {
+        // Duyệt qua các điểm đến để lấy ảnh tương ứng
         const imagePromises = travelDestinations.map(async (destination) => {
           const response = await axios.get(UNSPLASH_API, {
             headers: {
-              Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`,
+              Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`, // API key
             },
             params: {
-              query: destination.query,
-              orientation: "landscape",
-              per_page: 1,
+              query: destination.query, // Từ khóa tìm kiếm
+              orientation: "landscape", // Chỉ lấy ảnh ngang
+              per_page: 1, // Mỗi từ khóa lấy 1 ảnh
             },
           });
 
-          const imageUrl = response.data.results[0].urls.regular;
-          const photographer = response.data.results[0].user.name;
-          const photographerUrl = response.data.results[0].user.links.html;
+          const imageUrl = response.data.results[0].urls.regular; // URL ảnh
+          const photographer = response.data.results[0].user.name; // Tên tác giả ảnh
+          const photographerUrl = response.data.results[0].user.links.html; // Link tới trang tác giả
 
           return {
             ...destination,
@@ -120,9 +125,9 @@ const Slideshow = () => {
           };
         });
 
-        const results = await Promise.all(imagePromises);
-        setSlides(results);
-        setIsLoading(false);
+        const results = await Promise.all(imagePromises); // Đợi tất cả API trả về
+        setSlides(results); // Cập nhật danh sách ảnh
+        setIsLoading(false); // Kết thúc tải dữ liệu
       } catch (error) {
         console.error("Error fetching images:", error);
         setSlides(
@@ -130,7 +135,7 @@ const Slideshow = () => {
             ...dest,
             url: `/api/placeholder/1200/800?text=${encodeURIComponent(
               dest.query
-            )}`,
+            )}`, // Ảnh thay thế khi lỗi
             credit: {
               name: "Placeholder",
               url: "#",
@@ -141,9 +146,10 @@ const Slideshow = () => {
       }
     };
 
-    fetchImages();
+    fetchImages(); // Gọi hàm lấy ảnh
   }, []);
 
+  // Tự động chuyển ảnh sau khoảng thời gian `SLIDESHOW_INTERVAL`
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) =>

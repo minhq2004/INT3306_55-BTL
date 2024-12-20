@@ -3,12 +3,14 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 
 const AirplaneInput = ({ value, onChange }) => {
-  const [suggestions, setSuggestions] = useState([]);
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [dropdownStyles, setDropdownStyles] = useState({});
-  const inputRef = useRef(null);
+  // Các state quản lý component
+  const [suggestions, setSuggestions] = useState([]); // Danh sách gợi ý máy bay
+  const [isDropdownVisible, setDropdownVisible] = useState(false); // Điều khiển hiển thị dropdown
+  const [dropdownStyles, setDropdownStyles] = useState({}); // Style cho dropdown
+  const inputRef = useRef(null); // Tham chiếu đến input
   const dropdownRef = useRef(null); // Tham chiếu đến dropdown
 
+  // Lấy danh sách máy bay từ API
   const fetchAirplanes = async () => {
     try {
       const response = await axios.get(
@@ -20,11 +22,13 @@ const AirplaneInput = ({ value, onChange }) => {
     }
   };
 
+  // Xử lý khi người dùng nhập liệu
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     onChange(inputValue);
 
     if (inputValue.trim()) {
+      // Lọc gợi ý dựa trên ID máy bay hoặc model
       const filteredSuggestions = suggestions.filter(
         (airplane) =>
           airplane.airplane_id
@@ -39,11 +43,13 @@ const AirplaneInput = ({ value, onChange }) => {
     setDropdownVisible(true);
   };
 
+  // Xử lý khi chọn một máy bay từ danh sách
   const handleSelectSuggestion = (airplaneId) => {
     onChange(airplaneId); // Cập nhật giá trị input
     setDropdownVisible(false); // Ẩn dropdown
   };
 
+  // Tính toán vị trí hiển thị của dropdown
   const calculateDropdownPosition = () => {
     if (inputRef.current) {
       const rect = inputRef.current.getBoundingClientRect();
@@ -57,11 +63,13 @@ const AirplaneInput = ({ value, onChange }) => {
     return {};
   };
 
+  // Xử lý khi input được focus
   const handleFocus = () => {
-    fetchAirplanes(); // Fetch toàn bộ danh sách máy bay khi input được focus
+    fetchAirplanes(); // Lấy toàn bộ danh sách máy bay khi input được focus
     setDropdownVisible(true);
   };
 
+  // Xử lý khi input mất focus
   const handleBlur = (e) => {
     // Đợi 200ms để xử lý event click bên trong dropdown
     if (dropdownRef.current && dropdownRef.current.contains(e.relatedTarget)) {
@@ -70,6 +78,7 @@ const AirplaneInput = ({ value, onChange }) => {
     setTimeout(() => setDropdownVisible(false), 200);
   };
 
+  // Cập nhật vị trí dropdown khi hiển thị
   useEffect(() => {
     if (isDropdownVisible) {
       const position = calculateDropdownPosition();

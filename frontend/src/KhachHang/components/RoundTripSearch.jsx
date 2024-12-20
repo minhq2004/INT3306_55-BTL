@@ -16,12 +16,13 @@ import DateInput from "./DateInput.jsx";
 
 // LocationInput Component
 const LocationInput = ({ value, onChange, placeholder, startContent }) => {
-  const [suggestions, setSuggestions] = useState([]);
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [activeCountry, setActiveCountry] = useState(null);
-  const [dropdownStyles, setDropdownStyles] = useState({});
-  const inputRef = useRef(null);
+  const [suggestions, setSuggestions] = useState([]); // Lưu danh sách gợi ý
+  const [isDropdownVisible, setDropdownVisible] = useState(false); // Trạng thái hiển thị dropdown
+  const [activeCountry, setActiveCountry] = useState(null); // Quốc gia đang được chọn
+  const [dropdownStyles, setDropdownStyles] = useState({}); // Kiểu CSS của dropdown
+  const inputRef = useRef(null); // Tham chiếu tới phần tử input
 
+  // Lấy danh sách tất cả địa điểm
   const fetchAllLocations = async () => {
     try {
       const response = await axios.get(
@@ -30,13 +31,14 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
       const data = response.data;
       setSuggestions(data);
       if (data.length > 0) {
-        setActiveCountry(data[0]);
+        setActiveCountry(data[0]); // Đặt quốc gia đầu tiên làm mặc định
       }
     } catch (error) {
-      console.error("Error fetching all locations:", error);
+      console.error("Lỗi khi lấy tất cả địa điểm:", error);
     }
   };
 
+  // Tìm kiếm gợi ý dựa trên từ khóa người dùng nhập
   const fetchSuggestions = async (query) => {
     try {
       const response = await axios.get(
@@ -45,39 +47,44 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
       const data = response.data;
       setSuggestions(data);
       if (data.length > 0) {
-        setActiveCountry(data[0]);
+        setActiveCountry(data[0]); // Đặt quốc gia đầu tiên trong kết quả
       }
     } catch (error) {
-      console.error("Error fetching suggestions:", error);
+      console.error("Lỗi khi tìm kiếm gợi ý:", error);
     }
   };
 
+  // Xử lý khi người dùng thay đổi giá trị input
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     onChange(inputValue);
 
     if (inputValue.trim()) {
-      fetchSuggestions(inputValue);
+      fetchSuggestions(inputValue); // Nếu người dùng nhập, tìm kiếm gợi ý
     } else {
-      fetchAllLocations();
+      fetchAllLocations(); // Nếu input rỗng, lấy toàn bộ địa điểm
     }
-    setDropdownVisible(true);
+    setDropdownVisible(true); // Hiển thị dropdown
   };
 
+  // Xử lý khi người dùng chọn một gợi ý
   const handleSelectSuggestion = (city) => {
     onChange(city);
-    setDropdownVisible(false);
+    setDropdownVisible(false); // Ẩn dropdown sau khi chọn
   };
 
+  // Hiển thị dropdown khi input được focus
   const handleFocus = () => {
-    if (!value.trim()) fetchAllLocations();
+    if (!value.trim()) fetchAllLocations(); // Nếu input rỗng, lấy toàn bộ địa điểm
     setDropdownVisible(true);
   };
 
+  // Đặt trạng thái khi di chuột vào một quốc gia
   const handleMouseEnterCountry = (country) => {
-    setActiveCountry(country);
+    setActiveCountry(country); // Cập nhật quốc gia đang được hover
   };
 
+  // Tính toán vị trí của dropdown dựa trên input
   const calculateDropdownPosition = () => {
     if (inputRef.current) {
       const rect = inputRef.current.getBoundingClientRect();
@@ -91,6 +98,7 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
     return {};
   };
 
+  // Cập nhật vị trí dropdown khi nó được hiển thị
   useEffect(() => {
     if (isDropdownVisible) {
       const position = calculateDropdownPosition();
@@ -100,7 +108,7 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
         left: `${position.left}px`,
         minWidth: `${position.minWidth}px`,
         maxWidth: position.maxWidth,
-        zIndex: 50,
+        zIndex: 50, // Ưu tiên hiển thị cao
       });
     }
   }, [isDropdownVisible]);
@@ -122,7 +130,7 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
           className="h-full w-full bg-transparent text-medium pl-10 pr-4 outline-none truncate"
         />
       </div>
-
+      {/* Hiển thị danh sách gợi ý trong dropdown */}
       {isDropdownVisible &&
         suggestions.length > 0 &&
         ReactDOM.createPortal(
@@ -131,7 +139,7 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
             className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-xl shadow-2xl max-h-[400px] overflow-hidden animate-in fade-in duration-200"
           >
             <div className="flex divide-x divide-gray-100">
-              {/* Country List */}
+              {/* Danh sách quốc gia*/}
               <div className="w-1/3 bg-gray-50/80 backdrop-blur-md">
                 <div className="sticky top-0 bg-gray-50/90 backdrop-blur-md px-3 py-2 border-b border-gray-100">
                   <h3 className="text-sm font-medium text-gray-600">
@@ -162,7 +170,7 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
                 </div>
               </div>
 
-              {/* Cities List */}
+              {/* Danh sách thành phố */}
               <div className="w-2/3 bg-white">
                 <div className="sticky top-0 bg-white/90 backdrop-blur-md px-4 py-2 border-b border-gray-100">
                   <h3 className="text-sm font-medium text-gray-600">

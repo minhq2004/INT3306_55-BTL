@@ -11,42 +11,49 @@ import { Helmet } from "react-helmet";
 
 const SearchResults = () => {
   const {
-    oneWayFlights,
-    outboundFlights,
-    inboundFlights,
-    loading,
-    error,
-    selectedFlight,
-    selectedTicketType,
-    searchOneWayFlights,
-    searchRoundtripFlights,
-    selectFlight,
-    resetSelection,
-    setSearchParamsFromUrl,
-  } = useFlightStore();
+    oneWayFlights, // Danh sách chuyến bay một chiều
+    outboundFlights, // Danh sách chuyến bay đi (cho khứ hồi)
+    inboundFlights, // Danh sách chuyến bay về (cho khứ hồi)
+    loading, // Trạng thái đang tải
+    error, // Trạng thái lỗi
+    selectedFlight, // Chuyến bay đã chọn
+    selectedTicketType, // Loại vé đã chọn (ví dụ: Economy, Business)
+    searchOneWayFlights, // Hàm tìm kiếm chuyến bay một chiều
+    searchRoundtripFlights, // Hàm tìm kiếm chuyến bay khứ hồi
+    selectFlight, // Hàm chọn chuyến bay
+    resetSelection, // Hàm đặt lại các lựa chọn
+    setSearchParamsFromUrl, // Hàm thiết lập tham số tìm kiếm từ URL
+  } = useFlightStore(); // Sử dụng các trạng thái và hành động từ store
 
-  const [seatModalOpen, setSeatModalOpen] = useState(false);
-  const params = useParams();
+  const [seatModalOpen, setSeatModalOpen] = useState(false); // Trạng thái mở/đóng modal chọn ghế
+  const params = useParams(); // Lấy tham số từ URL
 
   useEffect(() => {
+    // Thiết lập tham số tìm kiếm từ URL khi component được mount
     setSearchParamsFromUrl(params);
+
+    // Kiểm tra có phải chuyến bay khứ hồi không, nếu có thì gọi hàm tìm chuyến khứ hồi
     if (params.return_time) {
       searchRoundtripFlights();
     } else {
+      // Nếu không, gọi hàm tìm chuyến bay một chiều
       searchOneWayFlights();
     }
+
+    // Cleanup: Khi component unmount, đặt lại lựa chọn
     return () => resetSelection();
   }, [
-    params.departure,
-    params.destination,
-    params.departure_time,
-    params.return_time,
-    params.amount,
+    params.departure, // Thành phố khởi hành
+    params.destination, // Thành phố đến
+    params.departure_time, // Thời gian khởi hành
+    params.return_time, // Thời gian về (nếu có)
+    params.amount, // Số lượng hành khách
   ]);
 
+  // Hàm xử lý khi chọn loại vé và chuyến bay
   const handleTicketSelect = (type, flight) => {
-    selectFlight(flight, type);
-    setSeatModalOpen(true);
+    selectFlight(flight, type); // Cập nhật chuyến bay và loại vé đã chọn
+    setSeatModalOpen(true); // Mở modal chọn ghế
   };
 
   if (loading) {
@@ -129,7 +136,7 @@ const SearchResults = () => {
                     </div>
                   </div>
 
-                  {/* Departure Date */}
+                  {/* Ngày đi */}
                   <div className="flex items-center gap-2 md:gap-4">
                     <div className="w-8 h-8 md:w-12 md:h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-lg">
                       <Calendar className="w-4 h-4 md:w-6 md:h-6 text-white" />
@@ -144,7 +151,7 @@ const SearchResults = () => {
                     </div>
                   </div>
 
-                  {/* Return Date if applicable */}
+                  {/* Ngày trả lại nếu có */}
                   {params.return_time && (
                     <div className="flex items-center gap-2 md:gap-4">
                       <div className="w-8 h-8 md:w-12 md:h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-lg">
@@ -161,7 +168,7 @@ const SearchResults = () => {
                     </div>
                   )}
 
-                  {/* Passengers */}
+                  {/* Hành khách */}
                   <div className="flex items-center gap-2 md:gap-4">
                     <div className="w-8 h-8 md:w-12 md:h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-lg">
                       <Users className="w-4 h-4 md:w-6 md:h-6 text-white" />
@@ -181,7 +188,7 @@ const SearchResults = () => {
           </div>
         </div>
 
-        {/* Results Section */}
+        {/* Phần kết quả */}
         <div className="max-w-6xl mx-auto px-4 py-8">
           {loading ? (
             <div className="min-h-[40vh] flex items-center justify-center">
@@ -347,7 +354,7 @@ const SearchResults = () => {
           />
         )}
 
-        {/* Custom Tailwind CSS for Gradient Animation */}
+        {/* CSS Tailwind tùy chỉnh cho hiệu ứng Gradient */}
         <style>{`
         @keyframes gradient-x {
           0%, 100% {

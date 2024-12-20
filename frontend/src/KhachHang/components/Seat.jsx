@@ -18,7 +18,7 @@ const Seat = ({ seatNumber, selected, status, onClick }) => {
           isClickable ? "hover:scale-105 cursor-pointer" : "cursor-not-allowed"
         }`}
       >
-        {/* Upper part of the seat (headrest) */}
+        {/* Phần trên của ghế */}
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -26,7 +26,7 @@ const Seat = ({ seatNumber, selected, status, onClick }) => {
           fill="currentColor"
         />
 
-        {/* Middle part of the seat (back) */}
+        {/* Phần giữ của ghế */}
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -34,7 +34,7 @@ const Seat = ({ seatNumber, selected, status, onClick }) => {
           fill="currentColor"
         />
 
-        {/* Lower part of the seat (base and supports) */}
+        {/* Phần dưới của ghế */}
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -42,7 +42,7 @@ const Seat = ({ seatNumber, selected, status, onClick }) => {
           fill="currentColor"
         />
 
-        {/* Seat number text */}
+        {/* Số ghế */}
         <text
           x="45"
           y="70"

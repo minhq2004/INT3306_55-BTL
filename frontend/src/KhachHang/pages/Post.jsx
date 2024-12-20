@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   ChevronLeft,
   ChevronRight,
@@ -16,19 +16,23 @@ import {
 import { Button, Link } from "@nextui-org/react";
 import { Helmet } from "react-helmet";
 
+// Component hiển thị danh sách bài viết
 const BlogList = () => {
-  const [posts, setPosts] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
+  // Lấy danh mục từ URL
+  const { category } = useParams();
 
-  const selectedCategory = searchParams.get("category") || "news";
+  // Các state để quản lý dữ liệu và trạng thái
+  const [posts, setPosts] = useState([]); // Danh sách bài viết
+  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
+  const [totalPages, setTotalPages] = useState(1); // Tổng số trang
+  const [isLoading, setIsLoading] = useState(true); // Trạng thái đang tải
+  const navigate = useNavigate(); // Điều hướng trang
 
+  // Danh sách các danh mục bài viết
   const categories = [
     {
       id: "news",
+      path: "/blog/news",
       label: "Tin tức",
       color: "bg-sky-500",
       lightColor: "bg-sky-50",
@@ -36,7 +40,8 @@ const BlogList = () => {
       description: "Cập nhật tin tức mới nhất về ngành hàng không",
     },
     {
-      id: "promotion",
+      id: "promotions",
+      path: "/blog/promotions",
       label: "Khuyến mãi",
       color: "bg-rose-500",
       lightColor: "bg-rose-50",
@@ -44,7 +49,8 @@ const BlogList = () => {
       description: "Các ưu đãi và khuyến mãi hấp dẫn",
     },
     {
-      id: "announcement",
+      id: "announcements",
+      path: "/blog/announcements",
       label: "Thông báo",
       color: "bg-amber-500",
       lightColor: "bg-amber-50",
@@ -53,6 +59,7 @@ const BlogList = () => {
     },
     {
       id: "about",
+      path: "/blog/about",
       label: "Về chúng tôi",
       color: "bg-emerald-500",
       lightColor: "bg-emerald-50",
@@ -61,14 +68,27 @@ const BlogList = () => {
     },
   ];
 
+  // Map danh mục trong URL sang danh mục API
+  const categoryMapping = {
+    news: "news",
+    promotions: "promotion",
+    announcements: "announcement",
+    about: "about",
+  };
+
+  // Lấy danh mục hiện tại hoặc mặc định là "news"
+  const selectedCategory = category || "news";
+  const apiCategory = categoryMapping[selectedCategory] || "news";
+
   useEffect(() => {
     fetchPosts();
   }, [selectedCategory, currentPage]);
 
+  // Hàm fetch danh sách bài viết từ API
   const fetchPosts = async () => {
     setIsLoading(true);
     try {
-      const endpoint = `http://localhost:3000/api/public/posts/${selectedCategory}/page/${currentPage}`;
+      const endpoint = `http://localhost:3000/api/public/posts/${apiCategory}/page/${currentPage}`;
       const response = await fetch(endpoint);
       const data = await response.json();
       setPosts(data.posts);
@@ -80,6 +100,12 @@ const BlogList = () => {
     }
   };
 
+  // Lấy thông tin danh mục hiện tại
+  const currentCategory =
+    categories.find((c) => c.id === selectedCategory) || categories[0];
+  const CategoryIcon = currentCategory.icon;
+
+  // Hàm định dạng ngày tháng
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-US", {
       month: "long",
@@ -88,6 +114,7 @@ const BlogList = () => {
     });
   };
 
+  // Hàm lấy ảnh bài viết hoặc trả về ảnh mặc định
   const getPostImage = (post) => {
     if (post.files && post.files.length > 0) {
       const imageFile = post.files.find((file) =>
@@ -97,24 +124,17 @@ const BlogList = () => {
         return `http://localhost:3000/public/${imageFile.file_path}`;
       }
     }
-    // Return the default image URL if no image files are found
-    return "/qairline.jpg";
+    return "/qairline.jpg"; // Ảnh mặc định
   };
-
-  const currentCategory =
-    categories.find((c) => c.id === selectedCategory) || categories[0];
-  const CategoryIcon = currentCategory.icon;
 
   return (
     <>
       <Helmet>
-        <title>
-          {selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}
-        </title>
+        <title>{currentCategory.label} - Q Airlines</title>
       </Helmet>
       <div className="min-h-screen mb-20">
         <div className="max-w-6xl mx-auto px-4 py-8 bg-white rounded-3xl shadow-xl">
-          {/* Header section remains the same */}
+          {/* Category header */}
           <div className="relative mb-12">
             <div className="absolute inset-0 bg-gradient-to-r from-sky-400/10 to-indigo-400/10 rounded-2xl blur-2xl" />
             <div className="relative text-center py-10 px-6 rounded-2xl border border-sky-100 bg-white/70 backdrop-blur-sm">
@@ -139,31 +159,31 @@ const BlogList = () => {
             </div>
           </div>
 
-          {/* Category Tabs section remains the same */}
+          {/* Category tabs */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {categories.map((category) => (
+            {categories.map((cat) => (
               <button
-                key={category.id}
+                key={cat.id}
                 onClick={() => {
-                  setSearchParams({ category: category.id });
+                  navigate(cat.path);
                   setCurrentPage(1);
                 }}
                 className={`group flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-300
-                    ${
-                      selectedCategory === category.id
-                        ? `${category.color} text-white shadow-sm`
-                        : `${category.lightColor} text-gray-700`
-                    }
-                    transform hover:scale-102 hover:-translate-y-0.5 active:scale-98`}
+                  ${
+                    selectedCategory === cat.id
+                      ? `${cat.color} text-white shadow-sm`
+                      : `${cat.lightColor} text-gray-700`
+                  }
+                  transform hover:scale-102 hover:-translate-y-0.5 active:scale-98`}
               >
-                <category.icon
+                <cat.icon
                   className={`w-5 h-5 ${
-                    selectedCategory === category.id
+                    selectedCategory === cat.id
                       ? "text-white"
-                      : `${category.color.replace("bg-", "text-")}`
+                      : `${cat.color.replace("bg-", "text-")}`
                   }`}
                 />
-                <span className="font-medium">{category.label}</span>
+                <span className="font-medium">{cat.label}</span>
               </button>
             ))}
           </div>
@@ -173,7 +193,7 @@ const BlogList = () => {
             {posts.map((post) => (
               <div
                 key={post.post_id}
-                onClick={() => navigate(`/blog/${post.post_id}`)}
+                onClick={() => navigate(`/blog/post/${post.post_id}`)}
                 className="group bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer transform hover:-translate-y-1"
               >
                 <div className="relative h-52 overflow-hidden">

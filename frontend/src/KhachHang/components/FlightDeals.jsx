@@ -2,51 +2,57 @@ import { useState, useEffect } from "react";
 import { Card, CardBody, Button, Image } from "@nextui-org/react";
 import { ChevronRight } from "lucide-react";
 
-// API Configuration
-const API_KEY = 'B43gtozbhTgx8yrT7nahGz3TvskudK0pieUqDWOZjNw';
-const API_URL = 'https://api.unsplash.com/search/photos';
+// Cấu hình API
+const API_KEY = "B43gtozbhTgx8yrT7nahGz3TvskudK0pieUqDWOZjNw";
+const API_URL = "https://api.unsplash.com/search/photos";
 
+// Dữ liệu cho các thẻ giới thiệu địa điểm
 const flightDealsData = [
   {
     id: 1,
     name: "Hà Nội",
     title: "Thủ đô nghìn năm văn hiến",
-    description: "Khám phá 36 phố phường cổ, thưởng thức ẩm thực đường phố độc đáo và tham quan các di tích lịch sử văn hóa.",
+    description:
+      "Khám phá 36 phố phường cổ, thưởng thức ẩm thực đường phố độc đáo và tham quan các di tích lịch sử văn hóa.",
     price: "Từ 1.990.000đ",
-    query: "hanoi"
+    query: "hanoi",
   },
   {
     id: 2,
     name: "Đà Nẵng",
     title: "Thành phố của những cây cầu",
-    description: "Tận hưởng bãi biển Mỹ Khê tuyệt đẹp, khám phá Bà Nà Hills và thưởng thức ẩm thực miền Trung độc đáo.",
+    description:
+      "Tận hưởng bãi biển Mỹ Khê tuyệt đẹp, khám phá Bà Nà Hills và thưởng thức ẩm thực miền Trung độc đáo.",
     price: "Từ 2.190.000đ",
-    query: "danang dragon bridge vietnam"
+    query: "danang dragon bridge vietnam",
   },
   {
     id: 3,
     name: "Đà Lạt",
     title: "Thành phố ngàn hoa",
-    description: "Trải nghiệm khí hậu mát mẻ quanh năm, tham quan các khu vườn hoa và thưởng thức cà phê trong không khí lãng mạn.",
+    description:
+      "Trải nghiệm khí hậu mát mẻ quanh năm, tham quan các khu vườn hoa và thưởng thức cà phê trong không khí lãng mạn.",
     price: "Từ 1.890.000đ",
-    query: "Đà Lạt"
+    query: "Đà Lạt",
   },
   {
     id: 4,
     name: "Phú Quốc",
     title: "Đảo ngọc thiên đường",
-    description: "Khám phá những bãi biển hoang sơ, lặn ngắm san hô và thưởng thức hải sản tươi ngon nhất Việt Nam.",
+    description:
+      "Khám phá những bãi biển hoang sơ, lặn ngắm san hô và thưởng thức hải sản tươi ngon nhất Việt Nam.",
     price: "Từ 2.490.000đ",
-    query: "phu quoc beach vietnam"
+    query: "phu quoc beach vietnam",
   },
   {
     id: 5,
     name: "Nha Trang",
     title: "Thành phố biển xinh đẹp",
-    description: "Tận hưởng những bãi biển trong xanh, vui chơi ở Vinpearl Land và khám phá văn hóa Chăm độc đáo.",
+    description:
+      "Tận hưởng những bãi biển trong xanh, vui chơi ở Vinpearl Land và khám phá văn hóa Chăm độc đáo.",
     price: "Từ 2.290.000đ",
-    query: "nha trang beach vietnam"
-  }
+    query: "nha trang beach vietnam",
+  },
 ];
 
 const FlightDealCard = ({ destination, onBooking }) => {
@@ -105,14 +111,14 @@ const FlightDeals = () => {
               `${API_URL}?query=${dest.query}&client_id=${API_KEY}&per_page=1`
             );
 
-            if (!response.ok) throw new Error('Failed to fetch images');
+            if (!response.ok) throw new Error("Failed to fetch images");
 
             const data = await response.json();
             const image = data.results[0]?.urls?.regular;
 
             return {
               ...dest,
-              image: image || '/placeholder-image.jpg'
+              image: image || "/placeholder-image.jpg",
             };
           })
         );
@@ -120,12 +126,14 @@ const FlightDeals = () => {
         setDestinations(destinationsWithImages);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching images:', err);
+        console.error("Error fetching images:", err);
         setLoading(false);
-        setDestinations(flightDealsData.map(dest => ({
-          ...dest,
-          image: '/placeholder-image.jpg'
-        })));
+        setDestinations(
+          flightDealsData.map((dest) => ({
+            ...dest,
+            image: "/placeholder-image.jpg",
+          }))
+        );
       }
     };
 
@@ -135,7 +143,7 @@ const FlightDeals = () => {
   const handleBooking = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
@@ -151,7 +159,10 @@ const FlightDeals = () => {
         <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-12">
           <div className="grid md:grid-cols-3 gap-8">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-[400px] bg-gray-200 animate-pulse rounded-lg"></div>
+              <div
+                key={i}
+                className="h-[400px] bg-gray-200 animate-pulse rounded-lg"
+              ></div>
             ))}
           </div>
         </div>

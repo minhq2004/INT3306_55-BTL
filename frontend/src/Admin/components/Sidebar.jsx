@@ -37,6 +37,7 @@ const Sidebar = () => {
     if (confirmLogout) {
       localStorage.removeItem("adminToken");
       localStorage.removeItem("admin");
+      localStorage.removeItem("activeItem");
       toast.success("Logout successfully!");
     }
   };

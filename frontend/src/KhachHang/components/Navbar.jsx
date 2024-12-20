@@ -43,8 +43,8 @@ const Navbar = () => {
     };
   }, [location.pathname]);
 
-  const locationPath = (route) => route === location.pathname;
-  const handleLogin = () => navigate("/login");
+  const locationPath = (route) => route === location.pathname; // Hàm kiểm tra đường dẫn hiện tại
+  const handleLogin = () => navigate("/login"); // Hàm điều hướng đến trang đăng nhập
 
   const navItems = [
     { path: "/", icon: Search, label: "Tìm chuyến bay" },
@@ -53,28 +53,28 @@ const Navbar = () => {
 
   const blogCategories = [
     {
-      path: "/blog",
+      path: "/blog/news",
       query: "news",
       icon: Newspaper,
       label: "Tin tức",
       description: "Cập nhật tin tức mới nhất về ngành hàng không",
     },
     {
-      path: "/blog",
+      path: "/blog/promotions",
       query: "promotion",
       icon: Gift,
       label: "Khuyến mãi",
       description: "Các ưu đãi và khuyến mãi hấp dẫn",
     },
     {
-      path: "/blog",
+      path: "/blog/announcements",
       query: "announcement",
       icon: Megaphone,
       label: "Thông báo",
       description: "Các thông báo quan trọng từ Q Airlines",
     },
     {
-      path: "/blog",
+      path: "/blog/about",
       query: "about",
       icon: Info,
       label: "Về chúng tôi",
@@ -228,16 +228,16 @@ const Navbar = () => {
                         {blogCategories.map((category) => (
                           <Link
                             key={category.query}
-                            to={`${category.path}?category=${category.query}`}
+                            to={category.path}
                             onClick={() => setIsExploreOpen(false)}
                             className="group flex items-center gap-4 p-4 rounded-xl transition-all duration-300
-                              hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50
-                              hover:scale-[0.98] hover:shadow-inner"
+            hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50
+            hover:scale-[0.98] hover:shadow-inner"
                           >
                             <div
                               className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-cyan-100
-                              flex items-center justify-center transition-all duration-300
-                              group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-blue-200/50"
+            flex items-center justify-center transition-all duration-300
+            group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-blue-200/50"
                             >
                               <category.icon className="w-6 h-6 text-blue-600" />
                             </div>

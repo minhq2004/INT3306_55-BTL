@@ -3,13 +3,15 @@ import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import { Calendar, User, Plane } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+// Component tìm kiếm chuyến bay một chiều
 const OneWaySearch = () => {
-  const navigate = useNavigate();
-  const [fromCity, setFromCity] = useState("");
-  const [toCity, setToCity] = useState("");
-  const [departDate, setDepartDate] = useState("");
-  const [passengers, setPassengers] = useState(1);
+  const navigate = useNavigate(); // Điều hướng giữa các trang
+  const [fromCity, setFromCity] = useState(""); // Thành phố khởi hành
+  const [toCity, setToCity] = useState(""); // Thành phố đến
+  const [departDate, setDepartDate] = useState(""); // Ngày khởi hành
+  const [passengers, setPassengers] = useState(1); // Số lượng hành khách
 
+  // Hàm xử lý khi nhấn nút tìm kiếm
   const handleSearch = () => {
     const searchParams = new URLSearchParams({
       from: fromCity,
@@ -18,6 +20,7 @@ const OneWaySearch = () => {
       passengers: passengers.toString(),
     });
 
+    // Điều hướng tới trang kết quả tìm kiếm với các tham số
     navigate({
       pathname: "/search-results",
       search: searchParams.toString(),
@@ -27,7 +30,7 @@ const OneWaySearch = () => {
   return (
     <div className="w-full max-w-6xl mx-auto p-4">
       <div className="flex flex-col md:flex-row gap-4">
-        {/* Location Group */}
+        {/* Nhóm nhập địa điểm */}
         <div className="flex flex-1 gap-2 min-w-0">
           <div className="flex-1">
             <Input
@@ -61,7 +64,7 @@ const OneWaySearch = () => {
           </div>
         </div>
 
-        {/* Date and Passengers Group */}
+        {/* Nhóm ngày và số lượng hành khách */}
         <div className="flex gap-2 md:w-[400px]">
           <div className="flex-1">
             <Input
@@ -109,14 +112,16 @@ const OneWaySearch = () => {
   );
 };
 
+// Component tìm kiếm chuyến bay khứ hồi (RoundTripSearch)
 const RoundTripSearch = () => {
   const navigate = useNavigate();
-  const [fromCity, setFromCity] = useState("");
-  const [toCity, setToCity] = useState("");
-  const [departDate, setDepartDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
-  const [passengers, setPassengers] = useState(1);
+  const [fromCity, setFromCity] = useState(""); // Thành phố khởi hành
+  const [toCity, setToCity] = useState(""); // Thành phố đến
+  const [departDate, setDepartDate] = useState(""); // Ngày khởi hành
+  const [returnDate, setReturnDate] = useState(""); // Ngày về
+  const [passengers, setPassengers] = useState(1); // Số lượng hành khách
 
+  // Hàm xử lý khi nhấn nút tìm kiếm
   const handleSearch = () => {
     const searchParams = new URLSearchParams({
       from: fromCity,
@@ -135,7 +140,7 @@ const RoundTripSearch = () => {
   return (
     <div className="w-full max-w-6xl mx-auto p-4">
       <div className="flex flex-col md:flex-row gap-4">
-        {/* Location Group */}
+        {/* Nhóm nhập địa điểm */}
         <div className="flex flex-1 gap-2 min-w-0">
           <div className="flex-1">
             <Input
@@ -169,7 +174,7 @@ const RoundTripSearch = () => {
           </div>
         </div>
 
-        {/* Date and Passengers Group */}
+        {/* Nhóm ngày và số lượng hành khách */}
         <div className="flex gap-2 md:w-[540px]">
           <div className="flex-1">
             <Input

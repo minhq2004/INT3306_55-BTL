@@ -14,17 +14,16 @@ const BookingSuccess = ({ isOpen, onClose }) => {
   React.useEffect(() => {
     if (isOpen) {
       // Toast thông báo thành công
-
       toast.success("Đặt vé thành công!", {
-        position: "top-center",
-        duration: 3000,
+        position: "top-center", // Vị trí hiển thị thông báo
+        duration: 3000, // Thời gian hiển thị thông báo
         action: {
-          label: "Xem chi tiết",
-          onClick: () => navigate("/userbooking"),
+          label: "Xem chi tiết", // Nhãn nút hành động
+          onClick: () => navigate("/userbooking"), // Điều hướng đến trang chi tiết đặt vé
         },
       });
     }
-  }, [isOpen]);
+  }, [isOpen, navigate]); // Chỉ chạy khi isOpen hoặc navigate thay đổi
 
   if (!isOpen) return null;
 

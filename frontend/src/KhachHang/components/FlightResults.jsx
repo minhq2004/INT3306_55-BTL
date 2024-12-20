@@ -22,7 +22,7 @@ const formatPrice = (price) => {
   return new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
-  }).format(price);
+  }).format(price); // Định dạng giá theo kiểu tiền tệ Việt Nam
 };
 
 const FlightResults = ({ flight, onSelect }) => {

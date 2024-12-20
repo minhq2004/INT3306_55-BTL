@@ -3,12 +3,14 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 
 const LocationInput = ({ value, onChange }) => {
-  const [suggestions, setSuggestions] = useState([]);
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [activeCountry, setActiveCountry] = useState(null);
-  const [dropdownStyles, setDropdownStyles] = useState({});
-  const inputRef = useRef(null);
+  // Các state quản lý component
+  const [suggestions, setSuggestions] = useState([]); // Danh sách gợi ý địa điểm
+  const [isDropdownVisible, setDropdownVisible] = useState(false); // Hiển thị/ẩn dropdown
+  const [activeCountry, setActiveCountry] = useState(null); // Quốc gia đang được chọn
+  const [dropdownStyles, setDropdownStyles] = useState({}); // Style cho dropdown
+  const inputRef = useRef(null); // Tham chiếu đến input
 
+  // Lấy tất cả địa điểm từ API
   const fetchAllLocations = async () => {
     try {
       const response = await axios.get(
@@ -24,6 +26,7 @@ const LocationInput = ({ value, onChange }) => {
     }
   };
 
+  // Lấy gợi ý địa điểm dựa trên từ khóa tìm kiếm
   const fetchSuggestions = async (query) => {
     try {
       const response = await axios.get(
@@ -65,6 +68,7 @@ const LocationInput = ({ value, onChange }) => {
     setActiveCountry(country);
   };
 
+  // Tính toán vị trí hiển thị của dropdown
   const calculateDropdownPosition = () => {
     if (inputRef.current) {
       const rect = inputRef.current.getBoundingClientRect();

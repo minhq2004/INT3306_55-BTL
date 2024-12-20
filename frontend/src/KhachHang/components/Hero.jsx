@@ -5,23 +5,23 @@ import GetAllFlights from "./GetFullFlights";
 import RoundTripSearch from "./RoundTripSearch";
 
 function HeroSec() {
-  const navigate = useNavigate();
-  const [tripType, setTripType] = useState("oneWay");
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const navigate = useNavigate(); // Khai báo hook useNavigate
+  const [tripType, setTripType] = useState("oneWay"); // Khai báo state cho loại chuyến đi
+  const [isTransitioning, setIsTransitioning] = useState(false); // Khai báo state cho trạng thái chuyển đổi
 
   const handleTripTypeChange = (type) => {
     if (type !== tripType) {
-      setIsTransitioning(true);
+      setIsTransitioning(true); // Bắt đầu trạng thái chuyển đổi
 
       setTimeout(() => {
-        setTripType(type);
-        setIsTransitioning(false);
-      }, 300);
+        setTripType(type); // Cập nhật loại chuyến đi
+        setIsTransitioning(false); // Kết thúc trạng thái chuyển đổi
+      }, 300); // Thời gian chuyển đổi là 300ms
     }
   };
 
   const handleAll = () => {
-    navigate("/fullList");
+    navigate("/fullList"); // Điều hướng đến trang danh sách đầy đủ
   };
 
   return (
