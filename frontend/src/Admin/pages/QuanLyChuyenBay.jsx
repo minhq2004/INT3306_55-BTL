@@ -298,7 +298,7 @@ const QuanLyChuyenBay = () => {
 
   return (
     <div className="rounded-xl h-screen min-h-screen flex flex-col space-y-3">
-      <div className="block md:flex space-x-0 md:space-x-2 space-y-3 md:space-y-0 h-3/4 overflow-auto">
+      <div className="block md:flex space-x-0 md:space-x-2 space-y-3 md:space-y-0 h-fit overflow-auto">
         <div className="rounded-lg bg-white flex flex-col md:overflow-auto shadow-md md:h-full flex-1">
           <h1 className="font-bold text-xl mt-2 ml-3">Enter flight data</h1>
           <div className="p-3 inline-flex w-full space-x-6">
@@ -360,7 +360,7 @@ const QuanLyChuyenBay = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="fill-black ml-10 lg:ml-7 flex-shrink-0"
+                  className="fill-black ml-auto flex-shrink-0"
                   width="20"
                   height="20"
                 >
@@ -397,7 +397,7 @@ const QuanLyChuyenBay = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="fill-black ml-10 lg:ml-7 flex-shrink-0"
+                  className="fill-black ml-auto flex-shrink-0"
                   width="20"
                   height="20"
                 >
@@ -466,7 +466,7 @@ const QuanLyChuyenBay = () => {
             </div>
           </div>
         </div>
-        <div className="rounded-lg bg-white flex flex-col shadow-md md:overflow-auto md:h-full flex-1 overflow-auto">
+        <div className="rounded-lg bg-white flex flex-col shadow-md md:overflow-auto md:h-full md:w-auto flex-1 overflow-auto">
           <div className="p-4 xl:m-auto">
             <div className="grid grid-cols-1 xl:grid-cols-4 gap-4">
               <div className="bg-gray-100 p-6 rounded-lg shadow-md col-span-1 xl:col-span-4 flex">

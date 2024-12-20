@@ -302,7 +302,7 @@ const DangThongTin = () => {
   return (
     <div className="rounded-xl h-screen min-h-screen flex flex-col space-y-4">
       {/* Form đăng bài */}
-      <div className="rounded-lg bg-white flex flex-col overflow-auto shadow-md h-full">
+      <div className="rounded-lg bg-white flex flex-col overflow-auto shadow-md h-fit">
         <h1 className="font-bold text-xl mt-2 ml-4">Add post</h1>
         <form onSubmit={handleSubmit} className="p-4 flex-col w-full">
           <div>
@@ -509,8 +509,8 @@ const DangThongTin = () => {
       </div>
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center overflow-y-auto">
-          <div className="bg-white rounded-lg p-4 w-3/4 lg:w-1/2 shadow-lg border overflow-auto h-5/6">
+        <div className="fixed inset-0 flex items-center justify-center overflow-y-auto h-full">
+          <div className="bg-white rounded-lg p-4 w-3/4 lg:w-1/2 shadow-lg border overflow-auto h-fit">
             <h2 className="text-xl font-bold mb-2">Edit post</h2>
             <div className="space-y-4">
               <div>
@@ -520,7 +520,7 @@ const DangThongTin = () => {
                   name="title"
                   value={formData.title || ""}
                   onChange={handleInputChange}
-                  className="block w-full  p-2 border rounded"
+                  className="block w-full p-2 border rounded"
                 />
               </div>
               <div>
@@ -529,7 +529,7 @@ const DangThongTin = () => {
                   name="content"
                   value={formData.content}
                   onChange={handleInputChange}
-                  className="block w-full p-2 border rounded"
+                  className="block w-full p-2 border rounded h-full"
                   rows="5"
                 ></textarea>
               </div>

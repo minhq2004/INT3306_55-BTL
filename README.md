@@ -62,7 +62,7 @@ JWT_SECRET=my_super_secret_key
 Terminal backend:
 
 ```bash
-cd .\backend\
+cd backend/
 npm install
 npm run dev
 ```
@@ -70,7 +70,7 @@ npm run dev
 Terminal frontend:
 
 ```bash
-cd .\frontend\
+cd frontend/
 npm install
 npm run dev
 ```
