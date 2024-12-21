@@ -1,4 +1,4 @@
-# BÀI TẬP LỚN Phát triển ứng dụng Web - INT3306_55
+# BÀI TẬP LỚN Phát triển ứng dụng Web - INT3306 55
 
 ## Table of Contents
 
@@ -26,6 +26,14 @@ BackEnd: https://qairlineonline.onrender.com/
 Sử dụng Render để Deploy BackEnd
 
 Database: Sử dụng Clever Cloud để Deploy database MySQL
+
+Tài khoản admin mẫu:
+- kiet@admin.com
+- admin123
+
+Tài khoản user mẫu:
+- minh@email.com
+- user123
 
 ## Sinh viên thực hiện
 
@@ -97,6 +105,18 @@ backend/
 - Hủy vé trong thời gian còn hạn được hủy.
 - Theo dõi thông tin về các chuyến bay đã đặt.
 
+![image](https://github.com/user-attachments/assets/c1a3fe4d-908f-4b59-a8cf-bbfb9faee278)
+
+![image](https://github.com/user-attachments/assets/363ba3ef-1873-42e3-ac0e-9a0944197a6e)
+
+![image](https://github.com/user-attachments/assets/a5f5a802-f4f7-44dd-941e-660228d217ed)
+
+![image](https://github.com/user-attachments/assets/60ef7a87-5db5-4f09-afe8-46fcef055a44)
+
+![image](https://github.com/user-attachments/assets/8a2976ca-e908-40a9-b931-3e28987cea97)
+
+![image](https://github.com/user-attachments/assets/3ae8d3d0-74d0-4b0d-aa19-ec7dc9482571)
+
 ### Chức năng cho quản trị
 
 - Đăng thông tin (giới thiệu, khuyến mại, thông báo, tin tức, ...) của hãng.
@@ -104,6 +124,16 @@ backend/
 - Nhập dữ liệu về các chuyến bay (số hiệu, tàu bay, điểm đi, điểm đến, giờ khởi hành, ...).
 - Xem và thống kê đặt vé của khách hàng.
 - Thay đổi giờ khởi hành (delay) cho chuyến bay nếu cần.
+
+![image](https://github.com/user-attachments/assets/9e331df0-58b6-4a06-b9f1-64a378d1da90)
+
+![image](https://github.com/user-attachments/assets/303887a6-8cd8-4b31-8b6c-4044a896ece6)
+
+![image](https://github.com/user-attachments/assets/414b2436-19a0-45c8-a43e-786b017284fe)
+
+![image](https://github.com/user-attachments/assets/a6b98bc7-f444-408b-bce1-a74776b50ce1)
+
+![image](https://github.com/user-attachments/assets/19f73802-95e8-40f0-b4f3-247b9998cf05)
 
 ## Các công nghệ sử dụng
 
