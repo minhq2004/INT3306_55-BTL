@@ -1,5 +1,20 @@
 # BÀI TẬP LỚN Phát triển ứng dụng Web - QAirline
 
+## Table of Contents
+
+- [Video Demo](#video-demo)
+- [Sinh viên thực hiện](#sinh-viên-thực-hiện)
+- [Giới thiệu](#giới-thiệu)
+- [Cấu trúc thư mục](#cấu-trúc-thư-mục)
+  - [Thư mục FrontEnd](#thư-mục-frontend)
+  - [Thư mục BackEnd](#thư-mục-backend)
+- [Mô tả chức năng](#mô-tả-chức-năng)
+  - [Chức năng cho khách hàng](#chức-năng-cho-khách-hàng)
+  - [Chức năng cho quản trị](#chức-năng-cho-quản-trị)
+- [Các công nghệ sử dụng](#các-công-nghệ-sử-dụng)
+- [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
+
+
 ## [Video Demo]()
 
 ## Sinh viên thực hiện
@@ -13,6 +28,50 @@
 ## Giới thiệu
 
 Hãng hàng không QAirline cần phát triển một website nhằm cung cấp thông tin về các chuyến bay cùng các dịch vụ bay do hãng cung cấp. Đồng thời, khách hàng có thể đặt vé trên website của QAirline.
+
+## Cấu trúc thư mục
+Thư mục FrontEnd
+```
+frontend/
+├─ public/
+├─ src/
+│  ├─ Admin/
+│  ├─ contexts/
+│  ├─ KhachHang/
+│  ├─ App.css
+│  ├─ App.jsx
+│  ├─ index.css
+│  ├─ main.jsx
+├─ .eslintrc.cjs
+├─ .gitignore
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.js
+├─ tailwind.config.js
+├─ vite.config.js
+```
+
+Thư mục BackEnd
+```
+backend/
+├─ config/
+├─ controllers/
+├─ middleware/
+├─ models/
+├─ public/
+│  ├─ about/
+│  ├─ announcement/
+│  ├─ news/
+│  ├─ promotion/
+├─ routes/
+├─ .env
+├─ .gitignore
+├─ app.js
+├─ package-lock.json
+├─ package.json
+```
+
 
 ## Mô tả chức năng
 
@@ -62,7 +121,7 @@ JWT_SECRET=my_super_secret_key
 Terminal backend:
 
 ```bash
-cd backend/
+cd .\backend\
 npm install
 npm run dev
 ```
@@ -70,7 +129,7 @@ npm run dev
 Terminal frontend:
 
 ```bash
-cd frontend/
+cd .\frontend\
 npm install
 npm run dev
 ```

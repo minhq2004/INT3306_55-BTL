@@ -461,5 +461,5 @@ module.exports = {
   getAllBookings,
   getBookingsByUser,
   payForBooking,
-  getBookingStatistics,
+  getBookingStatistics
 };
