@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import FileUpload from "../components/FileUpload";
 import toast from "react-hot-toast";
+import { Spinner } from "@nextui-org/react";
 
 const adminToken = localStorage.getItem("adminToken");
 
@@ -296,7 +297,12 @@ const DangThongTin = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-[600px]">
+        <Spinner size="lg" color="primary" />
+      </div>
+    );
   if (error) return <div>{error}</div>;
 
   return (
