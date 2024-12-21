@@ -1,19 +1,19 @@
-# BÀI TẬP LỚN Phát triển ứng dụng Web - QAirline
+# BÀI TẬP LỚN Phát triển ứng dụng Web - INT3306_55
 
 ## Table of Contents
 
+- [Giới thiệu](#giới-thiệu)
 - [Video Demo](#video-demo)
 - [Deploy trực tuyến](#deploy-trực-tuyến)
 - [Sinh viên thực hiện](#sinh-viên-thực-hiện)
-- [Giới thiệu](#giới-thiệu)
 - [Cấu trúc thư mục](#cấu-trúc-thư-mục)
-  - [Thư mục FrontEnd](#thư-mục-frontend)
-  - [Thư mục BackEnd](#thư-mục-backend)
 - [Mô tả chức năng](#mô-tả-chức-năng)
-  - [Chức năng cho khách hàng](#chức-năng-cho-khách-hàng)
-  - [Chức năng cho quản trị](#chức-năng-cho-quản-trị)
 - [Các công nghệ sử dụng](#các-công-nghệ-sử-dụng)
 - [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
+
+## Giới thiệu
+
+Hãng hàng không QAirline cần phát triển một website nhằm cung cấp thông tin về các chuyến bay cùng các dịch vụ bay do hãng cung cấp. Đồng thời, khách hàng có thể đặt vé trên website của QAirline.
 
 ## [Video Demo]()
 
@@ -35,10 +35,6 @@ Database: Sử dụng Clever Cloud để Deploy database MySQL
 | Lê Tuấn Kiệt        | 22024546     |
 | Nguyễn Quang Minh   | 22024547     |
 
-## Giới thiệu
-
-Hãng hàng không QAirline cần phát triển một website nhằm cung cấp thông tin về các chuyến bay cùng các dịch vụ bay do hãng cung cấp. Đồng thời, khách hàng có thể đặt vé trên website của QAirline.
-
 ## Cấu trúc thư mục
 
 Thư mục FrontEnd
@@ -48,14 +44,14 @@ frontend/
 ├─ public/
 ├─ src/
 │  ├─ Admin/
-│  	  ├─ components
-│  	  ├─ customize
-│  	  ├─ pages
+│  |	├─ components/
+│  |	├─ customize/
+│  |	├─ pages/
 │  ├─ contexts/
 │  ├─ KhachHang/
-│  	  ├─ components
-│  	  ├─ pages
-│  	  ├─ stores
+│  |	├─ components/
+│  |	├─ pages/
+│  |	├─ stores/
 │  ├─ App.css
 │  ├─ App.jsx
 │  ├─ index.css
