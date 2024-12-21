@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Video Demo](#video-demo)
+- [Deploy trực tuyến](#deploy-trực-tuyến)
 - [Sinh viên thực hiện](#sinh-viên-thực-hiện)
 - [Giới thiệu](#giới-thiệu)
 - [Cấu trúc thư mục](#cấu-trúc-thư-mục)
@@ -16,6 +17,16 @@
 
 
 ## [Video Demo]()
+
+## Deploy trực tuyến
+
+FrontEnd: https://qairline-online.vercel.app/ 
+Sử dụng Vercel để Deploy FrontEnd
+
+BackEnd: https://qairlineonline.onrender.com/
+Sử dụng Render để Deploy BackEnd
+
+Database: Sử dụng Clever Cloud để Deploy database MySQL
 
 ## Sinh viên thực hiện
 

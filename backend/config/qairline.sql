@@ -18594,7 +18594,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `date_of_birth`, `gender`, `email`, `phone`, `password_hash`, `id_card`, `passport`, `createdAt`, `updatedAt`) VALUES
 (1, 'Bui', 'Khanh', '1995-09-08 00:00:00', 'female', 'khanh@example.com', '0903322114', '$2b$10$JpjRFXc0n5z6fhPaNcGCXOH.2MXV1GPsjUGUmAuSL/ol4IhYpxgbq', '001016', '123465', '2024-12-17 14:24:35', '2024-12-17 14:24:35'),
-(2, 'Nguyen', 'Minh', '2004-04-22 00:00:00', 'male', 'minh@email.com', '0123478327', '$2b$10$MALq5vHcPVgTThB6Y51X..h4KkuQeqY6fDeLTmS3pLbgrIBs/GiFi', '123999', '123912', '2024-12-19 06:00:28', '2024-12-19 06:00:28'),
+(2, 'Nguyen', 'Minh', '2004-04-22 00:00:00', 'male', 'minh@email.com', '0123478327', '$2b$10$Zh36VYzUZu/dvuJ5RbEr1eRuSQuK54O50BCv7M47lXrWZO8R/CnJe', '123999', '123912', '2024-12-19 06:00:28', '2024-12-19 06:00:28'),
 (3, 'Tran', 'Binh', '2000-12-21 00:00:00', 'female', 'binh@example.com', '0987213443', '$2b$10$h6ZsUKuCgyZ00ydbiic3e.6g.hsBqsza6Mgtp.pw0Ak8ZN4yM98Ii', '003304', '923450', '2024-12-19 06:51:21', '2024-12-19 06:51:21'),
 (4, 'Tran', 'Tri', '2004-04-25 00:00:00', 'male', 'tri1@example.com', '1234567890', '$2b$10$uWeRnMI/q4urkK/bcS7kv.QbJsynxMK8kJZswV5/0yuzVL.gMIKQW', '001001', '123451', '2024-12-19 14:33:53', '2024-12-19 14:33:53'),
 (5, 'Nguyen', 'Minh', '1990-01-10 00:00:00', 'male', 'minh@example.com', '0123894473', '$2b$10$CGugM7aONgIx5dVk42oKZ.aqjsmUWy2lR.vBzZ99cOD49bTjIUFy6', '001002', '123452', '2024-12-19 14:34:40', '2024-12-19 14:34:40'),
