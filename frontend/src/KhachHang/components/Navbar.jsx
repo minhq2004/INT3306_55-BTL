@@ -11,6 +11,7 @@ import {
   Info,
   Gift,
   Sparkles,
+  X,
 } from "lucide-react";
 
 const Navbar = () => {
@@ -19,7 +20,9 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const exploreRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,6 +36,12 @@ const Navbar = () => {
       if (exploreRef.current && !exploreRef.current.contains(event.target)) {
         setIsExploreOpen(false);
       }
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -43,8 +52,8 @@ const Navbar = () => {
     };
   }, [location.pathname]);
 
-  const locationPath = (route) => route === location.pathname; // Hàm kiểm tra đường dẫn hiện tại
-  const handleLogin = () => navigate("/login"); // Hàm điều hướng đến trang đăng nhập
+  const locationPath = (route) => route === location.pathname;
+  const handleLogin = () => navigate("/login");
 
   const navItems = [
     { path: "/", icon: Search, label: "Tìm chuyến bay" },
@@ -86,6 +95,17 @@ const Navbar = () => {
     <div className="flex items-center">
       <Link
         to={path}
+        onClick={(e) => {
+          e.preventDefault();
+          if (window.scrollY > 0) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            setTimeout(() => {
+              navigate(path);
+            }, 500);
+          } else {
+            navigate(path);
+          }
+        }}
         className={`
           group relative flex items-center justify-center gap-3 px-6 py-3 rounded-xl
           transition-all duration-300 min-w-[140px] overflow-hidden
@@ -142,18 +162,29 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`w-full fixed top-0 z-50 transition-all duration-500
-          ${
-            isScrolled
-              ? "bg-white/95 backdrop-blur-xl shadow-lg py-2 border-b border-blue-100/50"
-              : "bg-gradient-to-b from-black/20 to-transparent py-4"
-          }`}
+        className={`w-full md:fixed relative top-0 z-50 transition-all duration-500
+    ${
+      isScrolled
+        ? "bg-white shadow-lg py-2 border-b border-blue-100/50"
+        : "bg-gradient-to-b from-black/20 to-transparent py-4"
+    }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link
               to="/"
+              onClick={(e) => {
+                e.preventDefault();
+                if (window.scrollY > 0) {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  setTimeout(() => {
+                    navigate("/");
+                  }, 500);
+                } else {
+                  navigate("/");
+                }
+              }}
               className="relative flex-shrink-0 flex items-center group"
             >
               <div className="absolute -inset-2 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl" />
@@ -229,15 +260,26 @@ const Navbar = () => {
                           <Link
                             key={category.query}
                             to={category.path}
-                            onClick={() => setIsExploreOpen(false)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setIsExploreOpen(false);
+                              if (window.scrollY > 0) {
+                                window.scrollTo({ top: 0, behavior: "smooth" });
+                                setTimeout(() => {
+                                  navigate(category.path);
+                                }, 500);
+                              } else {
+                                navigate(category.path);
+                              }
+                            }}
                             className="group flex items-center gap-4 p-4 rounded-xl transition-all duration-300
-            hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50
-            hover:scale-[0.98] hover:shadow-inner"
+                              hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50
+                              hover:scale-[0.98] hover:shadow-inner"
                           >
                             <div
                               className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-100 to-cyan-100
-            flex items-center justify-center transition-all duration-300
-            group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-blue-200/50"
+                              flex items-center justify-center transition-all duration-300
+                              group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-blue-200/50"
                             >
                               <category.icon className="w-6 h-6 text-blue-600" />
                             </div>
@@ -285,6 +327,7 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <div className="md:hidden">
               <button
+                onClick={() => setIsMobileMenuOpen(true)}
                 className={`p-3 rounded-xl transition-all duration-300
                   hover:scale-105 active:scale-95
                   ${
@@ -307,6 +350,161 @@ const Navbar = () => {
                   />
                 </svg>
               </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu Overlay */}
+        <div
+          className={`md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 z-100 
+            ${
+              isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+
+        {/* Mobile Menu Panel */}
+        <div
+          ref={mobileMenuRef}
+          className={`md:hidden fixed top-0 right-0 bottom-0 w-[280px] bg-white z-50 transform transition-transform duration-300
+            ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
+        >
+          <div className="h-full flex flex-col">
+            {/* Close button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100"
+            >
+              <X className="w-6 h-6 text-gray-500" />
+            </button>
+
+            {/* Mobile Logo */}
+            <div className="flex items-center p-4 border-b">
+              <Link
+                to="/"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  if (window.scrollY > 0) {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    setTimeout(() => navigate("/"), 500);
+                  } else {
+                    navigate("/");
+                  }
+                }}
+                className="relative flex items-center gap-3"
+              >
+                <img
+                  src="/qairline.jpg"
+                  alt="Qairline"
+                  className="h-10 w-10 rounded-full"
+                />
+                <span className="text-lg font-semibold text-gray-900">
+                  Q Airlines
+                </span>
+              </Link>
+            </div>
+
+            {/* Mobile navigation content */}
+            <div className="flex-1 overflow-y-auto">
+              {/* Nav Items */}
+              <div className="p-4 space-y-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      if (window.scrollY > 0) {
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                        setTimeout(() => navigate(item.path), 500);
+                      } else {
+                        navigate(item.path);
+                      }
+                    }}
+                    className={`flex items-center gap-3 p-4 rounded-xl transition-all
+                      ${
+                        locationPath(item.path)
+                          ? "bg-gradient-to-r from-blue-50 to-blue-100/50 text-blue-600"
+                          : "text-gray-700 hover:bg-gray-50"
+                      }`}
+                  >
+                    <item.icon
+                      className={`w-5 h-5 ${
+                        locationPath(item.path) ? "text-blue-600" : ""
+                      }`}
+                    />
+                    <span className="font-medium">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Blog Categories */}
+              <div className="mt-4">
+                <div className="px-8 mb-4">
+                  <div className="h-px bg-gray-200" />
+                </div>
+                <div className="px-4">
+                  <div className="text-sm font-semibold text-gray-500 px-4 mb-2">
+                    Khám phá
+                  </div>
+                  {blogCategories.map((category) => (
+                    <Link
+                      key={category.path}
+                      to={category.path}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        if (window.scrollY > 0) {
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                          setTimeout(() => navigate(category.path), 500);
+                        } else {
+                          navigate(category.path);
+                        }
+                      }}
+                      className="flex items-center gap-3 p-4 rounded-xl transition-all
+                        hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100/50"
+                    >
+                      <div
+                        className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-100 to-cyan-100
+                        flex items-center justify-center"
+                      >
+                        <category.icon className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900">
+                          {category.label}
+                        </div>
+                        <div className="text-sm text-gray-500 line-clamp-1">
+                          {category.description}
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom section with auth button */}
+            <div className="p-4 border-t mt-auto">
+              {!isLoggedIn ? (
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    handleLogin();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 p-4 rounded-xl 
+                    bg-gradient-to-r from-blue-600 to-blue-500 text-white 
+                    hover:shadow-lg hover:shadow-blue-500/30
+                    transition-all duration-300
+                    hover:scale-[0.98] active:scale-95"
+                >
+                  <LogIn className="w-5 h-5" />
+                  <span className="font-medium">Đăng nhập</span>
+                </button>
+              ) : (
+                <div className="px-4">
+                  <UserAvatarDropdown />
+                </div>
+              )}
             </div>
           </div>
         </div>
