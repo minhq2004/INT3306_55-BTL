@@ -173,7 +173,13 @@ const QuanLyTauBay = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-[600px]">
+        <Spinner size="lg" color="primary" />
+      </div>
+    );
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="rounded-xl h-screen min-h-screen flex flex-col space-y-4">
