@@ -19,7 +19,6 @@ import NotFound from "./KhachHang/components/NotFound.jsx";
 const App = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
-  const isAdminRoute = location.pathname.startsWith("/admin");
 
   // Tất cả các routes động (có params) cần được định nghĩa pattern
   const dynamicRoutePatterns = [
@@ -38,6 +37,20 @@ const App = () => {
     "/userbooking",
     "/userprofile",
   ];
+
+  // Các route hợp lệ cho admin
+  const adminRoutes = [
+    "/admin",
+    "/admin/thongtin",
+    "/admin/chuyenbay",
+    "/admin/datve",
+    "/admin/taubay",
+    "/admin/taikhoan",
+    "/admin/dichvu",
+    "/admin/khuyenmai",
+  ];
+
+  const isAdminRoute = adminRoutes.includes(location.pathname);
 
   // Kiểm tra xem path hiện tại có match với bất kỳ pattern nào không
   const isValidRoute =
@@ -139,6 +152,7 @@ const App = () => {
               />
               <Route path="/userbooking" element={<UserBooking />} />
               <Route path="/userprofile" element={<UserProfile />} />
+              <Route path="/admin/*" element={<AdminPage />} />
             </Routes>
           </div>
           <Footer />
