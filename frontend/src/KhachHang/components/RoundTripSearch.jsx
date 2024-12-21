@@ -143,7 +143,7 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
               <div className="w-1/3 bg-gray-50/80 backdrop-blur-md">
                 <div className="sticky top-0 bg-gray-50/90 backdrop-blur-md px-3 py-2 border-b border-gray-100">
                   <h3 className="text-sm font-medium text-gray-600">
-                    Countries
+                    Các quốc gia
                   </h3>
                 </div>
                 <div className="max-h-[360px] overflow-auto">
@@ -174,7 +174,7 @@ const LocationInput = ({ value, onChange, placeholder, startContent }) => {
               <div className="w-2/3 bg-white">
                 <div className="sticky top-0 bg-white/90 backdrop-blur-md px-4 py-2 border-b border-gray-100">
                   <h3 className="text-sm font-medium text-gray-600">
-                    Cities in {activeCountry?.country}
+                    Các thành phố tại {activeCountry?.country}
                   </h3>
                 </div>
                 <div className="max-h-[360px] overflow-auto p-2">
@@ -303,7 +303,7 @@ const RoundTripSearch = () => {
             className="w-full h-full bg-[#1a84dc] text-white rounded-none hover:bg-[#46e5c3] transition-colors"
             onClick={handleSearch}
           >
-            Search
+            Tìm kiếm
           </Button>
         </div>
       </div>

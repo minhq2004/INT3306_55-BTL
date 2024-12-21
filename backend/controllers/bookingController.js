@@ -137,7 +137,9 @@ const cancelBooking = async (req, res) => {
 
     // Kiểm tra thời gian hủy vé: Chỉ được hủy trước ít nhất 24h so với giờ khởi hành của chuyến bay
     const currentTime = new Date();
-    const flightDepartureTime = new Date(`${flight.departure_date}T${flight.departure_time}`);
+    const flightDepartureTime = new Date(
+      `${flight.departure_date}T${flight.departure_time}`
+    );
     const timeDifference = flightDepartureTime - currentTime;
 
     if (timeDifference <= 24 * 60 * 60 * 1000) {
@@ -250,7 +252,7 @@ const getBookingsByUser = async (req, res) => {
         },
         {
           model: Seat,
-          attributes: ["seat_type"], // Thông tin ghế
+          attributes: ["seat_type", "seat_number"], // Thông tin ghế
           include: [
             {
               model: Flight,
@@ -459,5 +461,5 @@ module.exports = {
   getAllBookings,
   getBookingsByUser,
   payForBooking,
-  getBookingStatistics
+  getBookingStatistics,
 };

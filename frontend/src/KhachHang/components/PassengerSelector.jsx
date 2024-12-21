@@ -13,7 +13,7 @@ const PassengerSelector = ({
     <Card className="p-6 w-72 bg-gradient-to-br from-blue-50 to-white border border-blue-100 shadow-lg">
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <span className="text-blue-800 font-medium">Adults</span>
+          <span className="text-blue-800 font-medium">Người lớn</span>
           <div className="flex items-center gap-3">
             <Button
               size="sm"
@@ -39,7 +39,7 @@ const PassengerSelector = ({
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-blue-800 font-medium">Minors</span>
+          <span className="text-blue-800 font-medium">Trẻ nhỏ</span>
           <div className="flex items-center gap-3">
             <Button
               size="sm"

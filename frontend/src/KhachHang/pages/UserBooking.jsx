@@ -180,9 +180,17 @@ const TicketCard = ({
                 </div>
               </div>
             </div>
-            <Chip className="capitalize" color="primary" size="sm">
-              {booking.Seat.seat_type}
-            </Chip>
+            <div className="flex items-center gap-2">
+              <Chip className="capitalize" color="primary" size="sm">
+                {booking.Seat.seat_type}
+              </Chip>
+              <Chip
+                className="bg-blue-100 text-blue-700 border-blue-200"
+                size="sm"
+              >
+                Ghế {booking.Seat.seat_number}
+              </Chip>
+            </div>
           </div>
 
           <div className="flex items-center gap-4 mb-4">

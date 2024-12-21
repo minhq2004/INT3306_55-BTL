@@ -34,11 +34,11 @@ const PlacesCard = ({ image, title, name, desc, onBooking }) => {
                 size="sm"
                 onPress={onBooking}
               >
-                Booking now
+                Đặt vé ngay
               </Button>
 
               <button className="flex items-center space-x-2 text-white/80 hover:text-white transition-colors group/learn">
-                <span className="text-sm">Learn More</span>
+                <span className="text-sm">Tìm hiểu thêm</span>
                 <ChevronRight className="h-5 w-5 group-hover/learn:translate-x-1 transition-transform" />
               </button>
             </div>
@@ -58,22 +58,22 @@ const Places = () => {
       try {
         const destinationsData = [
           {
-            query: "Ha Long Bay Vietnam",
-            title: "Experience the limestone karsts in",
-            name: "Vietnam",
-            desc: "Ha Long Bay features thousands of limestone karsts and isles in various shapes and sizes, forming a spectacular seascape of limestone pillars.",
+            query: "Vịnh Hạ Long Việt Nam",
+            title: "Trải nghiệm những núi đá vôi tại",
+            name: "Việt Nam",
+            desc: "Vịnh Hạ Long với hàng nghìn đảo đá vôi với nhiều hình dạng và kích thước khác nhau, tạo nên một khung cảnh biển tuyệt đẹp với những trụ đá vôi.",
           },
           {
-            query: "Grand Canyon USA",
-            title: "Explore the natural wonder in",
-            name: "United States",
-            desc: "The Grand Canyon, carved by the Colorado River, is a testament to 2 billion years of geological history and one of America's most iconic landscapes.",
+            query: "Hẻm núi Grand Canyon Hoa Kỳ",
+            title: "Khám phá kỳ quan thiên nhiên tại",
+            name: "Hoa Kỳ",
+            desc: "Grand Canyon, được tạo thành bởi sông Colorado, là minh chứng cho 2 tỷ năm lịch sử địa chất và là một trong những cảnh quan mang tính biểu tượng nhất của nước Mỹ.",
           },
           {
-            query: "Cotswolds England",
-            title: "Discover the countryside in",
-            name: "England",
-            desc: "The Cotswolds, with its honey-colored cottages and rolling hills, represents the quintessential English countryside and traditional village life.",
+            query: "Cotswolds Anh Quốc",
+            title: "Khám phá vùng quê tại",
+            name: "Anh Quốc",
+            desc: "Cotswolds, với những ngôi nhà màu mật ong và những ngọn đồi thoai thoải, đại diện cho vùng quê điển hình của Anh và cuộc sống làng quê truyền thống.",
           },
         ];
 
@@ -134,13 +134,13 @@ const Places = () => {
       <div className="bg-white/70 backdrop-blur-md rounded-3xl p-8 md:p-12">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
           <h2 className="text-2xl md:text-4xl font-bold text-black">
-            Explore unique
-            <span className="text-black"> places to stay</span>
+            Khám phá những
+            <span className="text-black"> điểm đến độc đáo</span>
           </h2>
 
           <button className="flex items-center space-x-2 cursor-pointer group bg-white/5 px-6 py-3 rounded-full hover:bg-white/10 transition-all">
             <span className="text-black/80 font-medium group-hover:text-white transition-colors">
-              View All
+              Xem tất cả
             </span>
             <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
           </button>

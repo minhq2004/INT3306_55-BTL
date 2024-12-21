@@ -151,7 +151,7 @@ const UserAvatarDropdown = () => {
               ${isScrolled ? "text-blue-600" : "text-white/80"}
             `}
           >
-            {user.role === "admin" ? "System Admin" : "Member"}
+            {user.role === "admin" ? "System Admin" : "Thành viên"}
           </p>
         </div>
 

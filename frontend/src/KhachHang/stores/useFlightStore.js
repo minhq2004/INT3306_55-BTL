@@ -12,7 +12,7 @@ const useFlightStore = create((set, get) => ({
       adults: 1,
       minors: 0,
     },
-    passengersDisplay: "1 Adult - 0 Minor", // Hiển thị số lượng hành khách
+    passengersDisplay: "1 Người lớn - 0 Trẻ nhỏ", // Hiển thị số lượng hành khách
   },
 
   // Kết quả tìm kiếm chuyến bay
@@ -47,7 +47,7 @@ const useFlightStore = create((set, get) => ({
           adults,
           minors,
         },
-        passengersDisplay: `${adults} Adult - ${minors} Minor`,
+        passengersDisplay: `${adults} Người lớn - ${minors} Trẻ nhỏ`,
       },
     }));
   },
@@ -67,7 +67,7 @@ const useFlightStore = create((set, get) => ({
           adults: amount, // Set adults to amount from URL
           minors: 0,
         },
-        passengersDisplay: `${amount} Adult - 0 Minor`,
+        passengersDisplay: `${amount} Người lớn - 0 Trẻ nhỏ`,
       },
     }));
   },
@@ -127,97 +127,97 @@ const useFlightStore = create((set, get) => ({
     }
   },
 
-// Các hàm xử lý lựa chọn
-selectFlight: (flight, ticketType) => {
-  set({
-    selectedFlight: flight,
-    selectedTicketType: ticketType,
-  });
-},
+  // Các hàm xử lý lựa chọn
+  selectFlight: (flight, ticketType) => {
+    set({
+      selectedFlight: flight,
+      selectedTicketType: ticketType,
+    });
+  },
 
-// Chọn ghế ngồi
-selectSeat: (seat) => {
-  set({ selectedSeat: seat });
-},
+  // Chọn ghế ngồi
+  selectSeat: (seat) => {
+    set({ selectedSeat: seat });
+  },
 
-// Thêm ghế đã chọn vào danh sách
-addSelectedSeat: (seat) =>
-  set((state) => ({
-    selectedSeats: [...state.selectedSeats, seat],
-  })),
+  // Thêm ghế đã chọn vào danh sách
+  addSelectedSeat: (seat) =>
+    set((state) => ({
+      selectedSeats: [...state.selectedSeats, seat],
+    })),
 
-// Xóa ghế khỏi danh sách đã chọn
-removeSelectedSeat: (seatId) =>
-  set((state) => ({
-    selectedSeats: state.selectedSeats.filter((s) => s.seat_id !== seatId),
-  })),
+  // Xóa ghế khỏi danh sách đã chọn
+  removeSelectedSeat: (seatId) =>
+    set((state) => ({
+      selectedSeats: state.selectedSeats.filter((s) => s.seat_id !== seatId),
+    })),
 
-// Đặt lại danh sách ghế đã chọn
-resetSeats: () => set({ selectedSeats: [] }),
+  // Đặt lại danh sách ghế đã chọn
+  resetSeats: () => set({ selectedSeats: [] }),
 
-// Các hàm đặt lại trạng thái
-resetSelection: () => {
-  set({
-    selectedFlight: null,
-    selectedTicketType: null,
-    selectedSeat: null,
-    selectedSeats: [],
-  });
-},
+  // Các hàm đặt lại trạng thái
+  resetSelection: () => {
+    set({
+      selectedFlight: null,
+      selectedTicketType: null,
+      selectedSeat: null,
+      selectedSeats: [],
+    });
+  },
 
-// Đặt lại kết quả tìm kiếm
-resetSearch: () => {
-  set({
-    oneWayFlights: [],
-    outboundFlights: [],
-    inboundFlights: [],
-    error: null,
-    selectedFlight: null,
-    selectedTicketType: null,
-    selectedSeat: null,
-    selectedSeats: [],
-  });
-},
+  // Đặt lại kết quả tìm kiếm
+  resetSearch: () => {
+    set({
+      oneWayFlights: [],
+      outboundFlights: [],
+      inboundFlights: [],
+      error: null,
+      selectedFlight: null,
+      selectedTicketType: null,
+      selectedSeat: null,
+      selectedSeats: [],
+    });
+  },
 
-// Lấy tổng số hành khách
-getTotalPassengers: () => {
-  const { searchParams } = get();
-  return searchParams.passengers.adults + searchParams.passengers.minors;
-},
+  // Lấy tổng số hành khách
+  getTotalPassengers: () => {
+    const { searchParams } = get();
+    return searchParams.passengers.adults + searchParams.passengers.minors;
+  },
 
-// Lấy số ghế còn trống theo loại vé
-getAvailableSeats: () => {
-  const { selectedFlight, selectedTicketType } = get();
-  if (!selectedFlight || !selectedTicketType) return 0;
+  // Lấy số ghế còn trống theo loại vé
+  getAvailableSeats: () => {
+    const { selectedFlight, selectedTicketType } = get();
+    if (!selectedFlight || !selectedTicketType) return 0;
 
-  switch (selectedTicketType.toLowerCase()) {
-    case "economy":
-      return selectedFlight.economy_available;
-    case "business":
-      return selectedFlight.business_available;
-    case "first class":
-      return selectedFlight.first_class_available;
-    default:
-      return 0;
-  }
-},
+    switch (selectedTicketType.toLowerCase()) {
+      case "economy":
+        return selectedFlight.economy_available;
+      case "business":
+        return selectedFlight.business_available;
+      case "first class":
+        return selectedFlight.first_class_available;
+      default:
+        return 0;
+    }
+  },
 
-// Lấy giá vé theo loại vé đã chọn
-getTicketPrice: () => {
-  const { selectedFlight, selectedTicketType } = get();
-  if (!selectedFlight || !selectedTicketType) return 0;
+  // Lấy giá vé theo loại vé đã chọn
+  getTicketPrice: () => {
+    const { selectedFlight, selectedTicketType } = get();
+    if (!selectedFlight || !selectedTicketType) return 0;
 
-  switch (selectedTicketType.toLowerCase()) {
-    case "economy":
-      return selectedFlight.economy_price;
-    case "business":
-      return selectedFlight.business_price;
-    case "first class":
-      return selectedFlight.first_class_price;
-    default:
-      return 0;
-  }
-},
+    switch (selectedTicketType.toLowerCase()) {
+      case "economy":
+        return selectedFlight.economy_price;
+      case "business":
+        return selectedFlight.business_price;
+      case "first class":
+        return selectedFlight.first_class_price;
+      default:
+        return 0;
+    }
+  },
 }));
 
 export default useFlightStore;
