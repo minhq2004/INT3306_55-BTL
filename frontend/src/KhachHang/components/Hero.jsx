@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OneWaySearch from "./OneWaySearch";
-import GetAllFlights from "./GetFullFlights";
+import GetAllFlights from "./GetFullFLights";
 import RoundTripSearch from "./RoundTripSearch";
 
 function HeroSec() {
