@@ -17,7 +17,7 @@ Github: [https://github.com/minhq2004/INT3306_55-BTL](https://github.com/minhq20
 
 Hãng hàng không QAirline cần phát triển một website nhằm cung cấp thông tin về các chuyến bay cùng các dịch vụ bay do hãng cung cấp. Đồng thời, khách hàng có thể đặt vé trên website của QAirline.
 
-## [Video Demo]()
+## [Video Demo](https://youtu.be/zkKT_TSjBa4)
 
 ## Deploy trực tuyến
 
