@@ -4,11 +4,11 @@ require("dotenv").config();
 const app = express();
 const sequelize = require("./config/db");
 const path = require("path");
-const morgan = require('morgan');
+const morgan = require("morgan");
 
 // Middleware
 app.use(cors());
-app.use(morgan('tiny'));
+app.use(morgan("tiny"));
 
 // Middleware cho JSON
 app.use(express.json());

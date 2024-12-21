@@ -15,12 +15,11 @@
 - [Các công nghệ sử dụng](#các-công-nghệ-sử-dụng)
 - [Hướng dẫn sử dụng](#hướng-dẫn-sử-dụng)
 
-
 ## [Video Demo]()
 
 ## Deploy trực tuyến
 
-FrontEnd: https://qairline-online.vercel.app/ 
+FrontEnd: https://qairline-online.vercel.app/
 Sử dụng Vercel để Deploy FrontEnd
 
 BackEnd: https://qairlineonline.onrender.com/
@@ -41,14 +40,22 @@ Database: Sử dụng Clever Cloud để Deploy database MySQL
 Hãng hàng không QAirline cần phát triển một website nhằm cung cấp thông tin về các chuyến bay cùng các dịch vụ bay do hãng cung cấp. Đồng thời, khách hàng có thể đặt vé trên website của QAirline.
 
 ## Cấu trúc thư mục
+
 Thư mục FrontEnd
+
 ```
 frontend/
 ├─ public/
 ├─ src/
 │  ├─ Admin/
+│  	  ├─ components
+│  	  ├─ customize
+│  	  ├─ pages
 │  ├─ contexts/
 │  ├─ KhachHang/
+│  	  ├─ components
+│  	  ├─ pages
+│  	  ├─ stores
 │  ├─ App.css
 │  ├─ App.jsx
 │  ├─ index.css
@@ -64,6 +71,7 @@ frontend/
 ```
 
 Thư mục BackEnd
+
 ```
 backend/
 ├─ config/
@@ -82,7 +90,6 @@ backend/
 ├─ package-lock.json
 ├─ package.json
 ```
-
 
 ## Mô tả chức năng
 
@@ -106,8 +113,10 @@ backend/
 
 - NodeJS
 - MySQL
+- ExpressJS
 - ReactJS
 - TailwindCSS
+- Sequelize
 
 ## Hướng dẫn sử dụng
 

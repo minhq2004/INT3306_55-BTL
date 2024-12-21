@@ -1,7 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { getAllPostsByCategory, getPostByID } = require("../controllers/postController");
-const { getAvailableSeatType, getAllSeat, getAllStatusSeatType } = require("../controllers/seatController");
+const {
+  getAllPostsByCategory,
+  getPostByID,
+} = require("../controllers/postController");
+const {
+  getAvailableSeatType,
+  getAllSeat,
+  getAllStatusSeatType,
+} = require("../controllers/seatController");
 const {
   getAirplanes,
   getRCMAirplanes,
@@ -38,7 +45,6 @@ router.get(
 router.get("/posts/:category/page/:page", getAllPostsByCategory); // lay tat ca bai viet
 router.get("/posts/:post_id", getPostByID); // lay chi tiet 1 bai viet
 
-
 // SeatsController
 // tra ve ghe available cua 1 chuyen bay theo hang ghe
 router.get("/seats/:flight_id/:seat_type", getAvailableSeatType);
@@ -46,7 +52,6 @@ router.get("/seats/:flight_id/:seat_type", getAvailableSeatType);
 router.get("/seats/:flight_id/:seat_type/all", getAllStatusSeatType);
 // tra ve tat ca cac ghe cua chuyen bay
 router.get("/seats/:flight_id", getAllSeat);
-
 
 // airplaneController
 router.get("/airplanes/page/:page", getAirplanes);
@@ -61,9 +66,6 @@ router.get("/locations/:query", rcmLocations);
 // RCM all location
 router.get("/locations", rcmAllLocations);
 
-
 //Check discount
 router.post("/discounts", checkDiscount);
 module.exports = router;
-
-// Tim kiem chuyen bay -> chon 1 chuyen bay -> tra ve danh sach ghe con trong -> public

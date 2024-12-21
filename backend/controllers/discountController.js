@@ -1,4 +1,4 @@
-const { Discount } = require("../models"); // Yêu cầu mô hình Discount từ models
+const { Discount } = require("../models");
 
 // Lấy danh sách tất cả discount
 const getAllDiscounts = async (req, res) => {
@@ -85,6 +85,7 @@ const deleteDiscount = async (req, res) => {
   }
 };
 
+// Check discount ton tai hay khong
 const checkDiscount = async (req, res) => {
   const { code } = req.body;
 
@@ -114,11 +115,10 @@ const checkDiscount = async (req, res) => {
   }
 };
 
-
 module.exports = {
   getAllDiscounts,
   createDiscount,
   updateDiscount,
   deleteDiscount,
-  checkDiscount
+  checkDiscount,
 };

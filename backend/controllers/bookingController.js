@@ -94,7 +94,7 @@ const bookTicket = async (req, res) => {
   }
 };
 
-// Working
+// Ham huy ve
 const cancelBooking = async (req, res) => {
   const { booking_id } = req.params;
 
@@ -168,7 +168,7 @@ const cancelBooking = async (req, res) => {
   }
 };
 
-//Xem toan bo ve Working
+//Xem toan bo ve
 const getAllBookings = async (req, res) => {
   const { page = 1, limit = 10 } = req.params; // Lấy trang và giới hạn từ query string
 
@@ -228,7 +228,7 @@ const getAllBookings = async (req, res) => {
   }
 };
 
-// Working
+// Ham tim cac ve theo user
 const getBookingsByUser = async (req, res) => {
   const user_id = req.user?.user_id;
   const { page = 1, limit = 10 } = req.params; // Lấy page và limit từ query string
@@ -293,7 +293,7 @@ const getBookingsByUser = async (req, res) => {
   }
 };
 
-// Thanh toan ve Working
+// Thanh toan ve
 const payForBooking = async (req, res) => {
   try {
     // Lấy booking_id từ request body
@@ -338,7 +338,7 @@ const payForBooking = async (req, res) => {
   }
 };
 
-// Thống kê đặt vé Working
+// Thống kê đặt vé
 const getBookingStatistics = async (req, res) => {
   try {
     // 1. Tổng số lượng booking
@@ -461,5 +461,5 @@ module.exports = {
   getAllBookings,
   getBookingsByUser,
   payForBooking,
-  getBookingStatistics
+  getBookingStatistics,
 };

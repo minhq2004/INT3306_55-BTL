@@ -8,7 +8,7 @@ const {
   bookTicket,
   cancelBooking,
   getBookingsByUser,
-  payForBooking
+  payForBooking,
 } = require("../controllers/bookingController");
 const { updateUser, getUserInfo } = require("../controllers/userController");
 
@@ -39,6 +39,7 @@ router.get(
   payForBooking
 );
 
+// Lay info ca nhan
 router.get("/info", authenticateToken, authorizeRole("user"), getUserInfo);
 
 // Route cập nhật thông tin cá nhân

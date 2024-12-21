@@ -1,4 +1,4 @@
-const { Service } = require("../models"); // Yêu cầu mô hình Service từ models
+const { Service } = require("../models");
 
 // Tạo dịch vụ mới
 const createService = async (req, res) => {

@@ -37,8 +37,7 @@ const {
   getAllDiscounts,
   updateDiscount,
   deleteDiscount,
-} = require("../controllers/discountController"); // Yêu cầu controller
-
+} = require("../controllers/discountController");
 const upload = require("../middleware/fileUpload"); // Import cấu hình Multer
 
 // Quản lý bài viết (CRUD)

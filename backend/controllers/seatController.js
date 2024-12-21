@@ -1,7 +1,6 @@
-// Working
-const { Seat } = require("../models"); // Yêu cầu tất cả các mô hình từ models/index.js
+const { Seat } = require("../models");
 
-// Lấy danh sách ghế trống
+// Lấy danh sách ghế trống theo seattype
 const getAvailableSeatType = async (req, res) => {
   const { flight_id, seat_type } = req.params;
 
@@ -48,7 +47,7 @@ const getAvailableSeatType = async (req, res) => {
   }
 };
 
-// Lấy danh sách ghế trống
+// Lấy danh sách ghế theo seattype
 const getAllStatusSeatType = async (req, res) => {
   const { flight_id, seat_type } = req.params;
 
@@ -95,6 +94,7 @@ const getAllStatusSeatType = async (req, res) => {
   }
 };
 
+// Lay toan bo ghe trong chuyen bay
 const getAllSeat = async (req, res) => {
   const { flight_id } = req.params;
 

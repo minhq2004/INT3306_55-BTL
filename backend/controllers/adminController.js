@@ -1,6 +1,5 @@
-// Working
 const bcrypt = require("bcrypt");
-const { Admin } = require("../models"); // Yêu cầu tất cả các mô hình từ models/index.js
+const { Admin } = require("../models");
 
 // Hàm lấy tất cả tài khoản admin
 const getAllAdmins = async (req, res) => {

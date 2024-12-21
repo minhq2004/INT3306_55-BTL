@@ -1,5 +1,4 @@
-// Working
-const { Airplane } = require("../models"); // Yêu cầu tất cả các mô hình từ models/index.js
+const { Airplane } = require("../models");
 
 // Tạo máy bay
 const createAirplane = async (req, res) => {

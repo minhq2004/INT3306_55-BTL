@@ -27,27 +27,27 @@ module.exports = (sequelize, DataTypes) => {
       seat_price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
-        defaultValue: 0.00,
+        defaultValue: 0.0,
       },
       service_price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
-        defaultValue: 0.00,
+        defaultValue: 0.0,
       },
       discount_value: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
-        defaultValue: 0.00,
+        defaultValue: 0.0,
       },
       total_price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
-        defaultValue: 0.00,
+        defaultValue: 0.0,
       },
     },
     {
       tableName: "bookings",
-      timestamps: true, 
+      timestamps: true,
     }
   );
 

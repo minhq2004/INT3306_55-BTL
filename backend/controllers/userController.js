@@ -1,8 +1,7 @@
-// Working
 const bcrypt = require("bcrypt");
-const { User } = require("../models"); // Yêu cầu mô hình Service từ models
+const { User } = require("../models");
 
-// Lay thong tin user
+// Lay thong tin cua user dang nhap
 const getUserInfo = async (req, res) => {
   try {
     // Lấy thông tin người dùng từ middleware xác thực

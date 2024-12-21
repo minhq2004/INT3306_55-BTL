@@ -1,5 +1,4 @@
-//Working
-const { Airplane, Flight, Seat } = require("../models"); // Yêu cầu tất cả các mô hình từ models/index.js
+const { Airplane, Flight, Seat } = require("../models");
 const sequelize = require("../config/db");
 const { Op } = require("sequelize");
 
@@ -59,8 +58,7 @@ const getAllFlights = async (req, res) => {
   }
 };
 
-//GET /flights/oneway/Hanoi/HoChiMinh/2024-12-01T10:00:00/1/10
-// Lấy tất cả các chuyến bay với thông tin máy bay và giá ghế cho từng hạng
+// Lấy thong tin chi tiet mot chuyến bay với thông tin máy bay và giá ghế cho từng hạng
 const getFlightDetails = async (req, res) => {
   const { flight_id } = req.params; // Lấy flight_id từ params
 
@@ -95,7 +93,6 @@ const getFlightDetails = async (req, res) => {
   }
 };
 
-// Tìm kiếm chuyến bay một chiều
 // Tìm kiếm chuyến bay một chiều
 const searchOneWayFlights = async (req, res) => {
   const { departure, destination, departure_date, amount } = req.params;
@@ -151,7 +148,7 @@ const searchOneWayFlights = async (req, res) => {
   }
 };
 
-// Hàm xử lý chuyến bay và giá ghế
+// Hàm xử lý chuyến bay và giá ghế tra ve
 const processFlight = (flight) => {
   const seatPrices = {
     economy: 0,
@@ -198,9 +195,7 @@ const processFlight = (flight) => {
   };
 };
 
-//GET /flights/roundtrip/Hanoi/HoChiMinh/2024-12-01T10:00:00/2024-12-05T10:00:00/1/10
 // Tìm kiếm chuyến bay khứ hồi
-
 const searchRoundTripFlights = async (req, res) => {
   const { departure, destination, departure_date, return_date, amount } =
     req.params;
@@ -299,6 +294,7 @@ const searchRoundTripFlights = async (req, res) => {
   }
 };
 
+// Dem so ghe con kha dung
 const countAvailableSeats = (flight, amount) => {
   let availableSeats = 0;
 
@@ -529,6 +525,7 @@ const updateFlight = async (req, res) => {
   }
 };
 
+// Xoa chuyen bay
 const deleteFlight = async (req, res) => {
   const { flight_id } = req.params;
 
@@ -550,6 +547,7 @@ const deleteFlight = async (req, res) => {
   }
 };
 
+// Thong ke chuyen bay
 const getFlightStatistic = async (req, res) => {
   try {
     const stats = await Flight.findAll({
@@ -607,5 +605,5 @@ module.exports = {
   createFlight,
   updateFlight,
   deleteFlight,
-  getFlightStatistic
+  getFlightStatistic,
 };

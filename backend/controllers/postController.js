@@ -1,7 +1,6 @@
-// Working
 const fs = require("fs");
 const path = require("path");
-const { Post, File } = require("../models"); // Import models Post và File
+const { Post, File } = require("../models");
 
 // Hàm để xoá file khỏi thư mục public
 const deleteFileFromPublic = (filePath) => {
@@ -22,6 +21,7 @@ const deleteFileFromPublic = (filePath) => {
   }
 };
 
+// Ham tao post
 const createPost = async (req, res) => {
   const { title, content, category } = req.body;
 
@@ -66,6 +66,7 @@ const createPost = async (req, res) => {
   }
 };
 
+// Chinh sua post
 const updatePost = async (req, res) => {
   const { post_id } = req.params;
   const { title, content } = req.body;
@@ -152,6 +153,7 @@ const updatePost = async (req, res) => {
   }
 };
 
+// Lay danh sach post theo category
 const getAllPostsByCategory = async (req, res) => {
   try {
     // Lấy các tham số phân trang và category từ URL params
@@ -231,6 +233,7 @@ const getAllPostsByCategory = async (req, res) => {
   }
 };
 
+// Lay thong tin chi tiet cua mot post
 const getPostByID = async (req, res) => {
   try {
     // Lấy post_id từ URL params
@@ -256,19 +259,18 @@ const getPostByID = async (req, res) => {
 
     const postFiles = files.filter((file) => file.post_id === post.post_id);
 
-
     // Gắn các file vào mỗi bài viết theo post_id
-    const postWithFiles =  {
-        ...post.toJSON(), // Các trường dữ liệu bài viết
-        files: postFiles.map((file) => ({
-          file_id: file.file_id,
-          // Chuyển đường dẫn file từ tuyệt đối thành tương đối
-          file_path: file.file_path
-            .replace(/\\/g, "/") // Thay thế dấu "\" thành "/"
-            .replace(path.join(__dirname, "../public"), "/public"), // Thay thế bằng đường dẫn tương đối
-          file_name: file.file_name,
-          file_type: file.file_type,
-        })),
+    const postWithFiles = {
+      ...post.toJSON(), // Các trường dữ liệu bài viết
+      files: postFiles.map((file) => ({
+        file_id: file.file_id,
+        // Chuyển đường dẫn file từ tuyệt đối thành tương đối
+        file_path: file.file_path
+          .replace(/\\/g, "/") // Thay thế dấu "\" thành "/"
+          .replace(path.join(__dirname, "../public"), "/public"), // Thay thế bằng đường dẫn tương đối
+        file_name: file.file_name,
+        file_type: file.file_type,
+      })),
     };
 
     res.status(200).json(postWithFiles);
@@ -278,6 +280,7 @@ const getPostByID = async (req, res) => {
   }
 };
 
+// Ham xoa post
 const deletePost = async (req, res) => {
   const postId = req.params.post_id;
 
@@ -312,4 +315,10 @@ const deletePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getAllPostsByCategory, getPostByID, updatePost, deletePost };
+module.exports = {
+  createPost,
+  getAllPostsByCategory,
+  getPostByID,
+  updatePost,
+  deletePost,
+};

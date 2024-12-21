@@ -5,6 +5,7 @@ const escapeLike = (str) => {
   return str.replace(/[%_]/g, "\\$&");
 };
 
+// API goi y location theo query
 const rcmLocations = async (req, res) => {
   const query = req.params.query;
 
@@ -63,6 +64,7 @@ const rcmLocations = async (req, res) => {
   }
 };
 
+// API goi y all location
 const rcmAllLocations = async (req, res) => {
   try {
     const locations = await Airport.findAll({

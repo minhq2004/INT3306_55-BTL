@@ -14,6 +14,7 @@ const User = require("./User")(sequelize, DataTypes);
 const Admin = require("./Admin")(sequelize, DataTypes);
 const Service = require("./Service")(sequelize, DataTypes);
 const Airport = require("./Airport")(sequelize, DataTypes);
+
 // Đặt tất cả các model vào một object
 const models = {
   Airplane,
@@ -40,13 +41,13 @@ Object.values(models).forEach((model) => {
 async function syncModels() {
   try {
     // Đồng bộ hóa tất cả các model với cơ sở dữ liệu
-    await sequelize.sync();  // { force: true } sẽ xóa các bảng cũ và tạo lại bảng mới
+    await sequelize.sync();
     console.log("Database synced successfully!");
   } catch (error) {
     console.error("Error syncing database:", error);
   }
 }
 
-syncModels(); 
+syncModels();
 
-module.exports = models; // Xuất các model để sử dụng trong các phần khác của ứng dụng
+module.exports = models; // Xuất các model

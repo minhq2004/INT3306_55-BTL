@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       airport_name: {
-        // Thêm trường name
         type: DataTypes.STRING(150),
         allowNull: false,
       },
@@ -24,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: "airports", // Đổi từ 'locations' thành 'airport'
+      tableName: "airports",
       timestamps: false,
       indexes: [
         {
