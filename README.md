@@ -1,5 +1,7 @@
 # BÀI TẬP LỚN Phát triển ứng dụng Web - INT3306 55
 
+Github: [https://github.com/minhq2004/INT3306_55-BTL](https://github.com/minhq2004/INT3306_55-BTL)
+
 ## Table of Contents
 
 - [Giới thiệu](#giới-thiệu)
@@ -100,10 +102,15 @@ backend/
 ### Chức năng cho khách hàng
 
 - Xem thông tin chung và thông tin về các chuyến bay.
-- Tìm chuyến bay.
-- Đặt vé (không yêu cầu tích hợp thanh toán online).
+- Tìm chuyến bay một chiều.
+- Tìm chuyến bay khứ hồi.
+- Đặt vé.
+- Dịch vụ mua hành lý.
+- Săn và áp dụng mã khuyến mại.
 - Hủy vé trong thời gian còn hạn được hủy.
 - Theo dõi thông tin về các chuyến bay đã đặt.
+- Xem lịch sử đặt vé của riêng từng khách hàng.
+- Xem thông tin về các bài đăng mới nhất.
 
 ![image](https://github.com/user-attachments/assets/c1a3fe4d-908f-4b59-a8cf-bbfb9faee278)
 
@@ -120,10 +127,12 @@ backend/
 ### Chức năng cho quản trị
 
 - Đăng thông tin (giới thiệu, khuyến mại, thông báo, tin tức, ...) của hãng.
-- Nhập dữ liệu về các tàu bay (mã, hãng sản xuất, thông tin về các ghế, ...).
-- Nhập dữ liệu về các chuyến bay (số hiệu, tàu bay, điểm đi, điểm đến, giờ khởi hành, ...).
+- Quản lý các tàu bay.
+- Quản lý các chuyến bay.
 - Xem và thống kê đặt vé của khách hàng.
 - Thay đổi giờ khởi hành (delay) cho chuyến bay nếu cần.
+- Quản lý các dịch vụ hành lý.
+- Quản lý các mã giảm giá.
 
 ![image](https://github.com/user-attachments/assets/9e331df0-58b6-4a06-b9f1-64a378d1da90)
 
