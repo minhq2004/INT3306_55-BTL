@@ -294,10 +294,17 @@ const QuanLyChuyenBay = () => {
   };
 
   // Hiển thị lỗi và tải nếu có
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-[600px]">
+        <Spinner size="lg" color="primary" />
+      </div>
+    );
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="rounded-xl h-screen min-h-screen flex flex-col space-y-3">
+      {/* Thêm chuyến bay chuyến bay */}
       <div className="block md:flex space-x-0 md:space-x-2 space-y-3 md:space-y-0 h-fit overflow-auto">
         <div className="rounded-lg bg-white flex flex-col md:overflow-auto shadow-md md:h-full flex-1">
           <h1 className="font-bold text-xl mt-2 ml-3">Enter flight data</h1>
@@ -466,6 +473,7 @@ const QuanLyChuyenBay = () => {
             </div>
           </div>
         </div>
+        {/* Thống kê các chuyến bay */}
         <div className="rounded-lg bg-white flex flex-col shadow-md md:overflow-auto md:h-full md:w-auto flex-1 overflow-auto">
           <div className="p-4 xl:m-auto">
             <div className="grid grid-cols-1 xl:grid-cols-4 gap-4">

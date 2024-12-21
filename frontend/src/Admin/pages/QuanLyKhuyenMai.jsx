@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Spinner } from "@nextui-org/react";
 
 const adminToken = localStorage.getItem("adminToken");
 
@@ -148,7 +149,13 @@ const QuanLyKhuyenMai = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  // Hiển thị lỗi và tải nếu có
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-[600px]">
+        <Spinner size="lg" color="primary" />
+      </div>
+    );
   if (error) return <div>Error: {error}</div>;
 
   return (
