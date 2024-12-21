@@ -115,7 +115,7 @@ const SearchResults = () => {
                       <p className="text-xs md:text-sm text-blue-100 opacity-80">
                         Từ
                       </p>
-                      <p className="font-semibold text-sm md:text-lg">
+                      <p className="font-semibold text-sm md:text-lg text-white">
                         {params.departure}
                       </p>
                     </div>
@@ -130,7 +130,7 @@ const SearchResults = () => {
                       <p className="text-xs md:text-sm text-blue-100 opacity-80">
                         Đến
                       </p>
-                      <p className="font-semibold text-sm md:text-lg">
+                      <p className="font-semibold text-sm md:text-lg text-white">
                         {params.destination}
                       </p>
                     </div>
@@ -145,7 +145,7 @@ const SearchResults = () => {
                       <p className="text-xs md:text-sm text-blue-100 opacity-80">
                         Ngày đi
                       </p>
-                      <p className="font-semibold text-sm md:text-lg">
+                      <p className="font-semibold text-sm md:text-lg text-white">
                         {params.departure_time}
                       </p>
                     </div>
@@ -161,7 +161,7 @@ const SearchResults = () => {
                         <p className="text-xs md:text-sm text-blue-100 opacity-80">
                           Ngày về
                         </p>
-                        <p className="font-semibold text-sm md:text-lg">
+                        <p className="font-semibold text-sm md:text-lg text-white">
                           {params.return_time}
                         </p>
                       </div>
@@ -177,7 +177,7 @@ const SearchResults = () => {
                       <p className="text-xs md:text-sm text-blue-100 opacity-80">
                         Hành khách
                       </p>
-                      <p className="font-semibold text-sm md:text-lg">
+                      <p className="font-semibold text-sm md:text-lg text-white">
                         {params.amount} người
                       </p>
                     </div>
